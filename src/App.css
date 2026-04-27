@@ -1,0 +1,27 @@
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 12vw, 8rem);
+  margin: 0;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.tagline {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  opacity: 0.7;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+}
