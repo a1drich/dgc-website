@@ -4,8 +4,8 @@ import Logo from './Logo.jsx'
 const portfolio = [
   { name: 'Bookmo', href: 'https://bookmo.ph' },
   { name: 'Yay', href: 'https://yay.ph' },
-  { name: 'The Daily Detox', href: 'https://thedailydetox.com.ph/' },
-  { name: 'DGC Farms', href: '#' },
+  { name: 'BabyCrate', href: 'https://babycrate.ph' },
+  { name: 'The Hillside', href: '#' },
 ]
 
 const nav = [

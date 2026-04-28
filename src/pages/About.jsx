@@ -5,9 +5,9 @@ import SectionHeading from '../components/SectionHeading.jsx'
 const investAreas = [
   { title: 'Technology platforms', body: 'Software-leveraged businesses serving real, recurring needs.' },
   { title: 'Digital marketplaces', body: 'Two-sided networks unlocking liquidity in underserved categories.' },
-  { title: 'Consumer internet', body: 'Brands and products built natively for the mobile-first Filipino consumer.' },
+  { title: 'Consumer internet & e-commerce', body: 'Brands and products built natively for the mobile-first Filipino consumer.' },
   { title: 'Sustainability-driven brands', body: 'Companies whose growth and impact compound in the same direction.' },
-  { title: 'Wellness & lifestyle', body: 'Modern, durable brands shaping how people live and feel better, daily.' },
+  { title: 'Agri-tech & food systems', body: 'Working farms and tooling that make Philippine agriculture more productive and more sustainable.' },
 ]
 
 const approach = [

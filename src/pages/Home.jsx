@@ -13,31 +13,31 @@ const portfolio = [
   {
     name: 'Yay',
     href: 'https://yay.ph',
-    sector: 'Consumer Internet',
+    sector: 'Proptech · Marketplace',
     description:
-      'A fast-growing platform simplifying everyday services for Filipinos through intuitive digital solutions.',
+      'A trusted rental marketplace connecting landlords and renters across the Philippines — verified listings, secure payments, and protections for both sides of the lease.',
   },
   {
-    name: 'The Daily Detox',
-    href: 'https://thedailydetox.com.ph/',
-    sector: 'Wellness · Sustainability',
+    name: 'BabyCrate',
+    href: 'https://babycrate.ph',
+    sector: 'E-commerce · Sustainability',
     description:
-      'A wellness brand focused on natural detox, functional beverages, and sustainable health products.',
+      'A Philippine e-commerce platform curating sustainable, planet-conscious essentials for babies and mothers.',
   },
   {
-    name: 'DGC Farms',
+    name: 'The Hillside',
     href: '#',
-    sector: 'Agri-tourism · Sustainability',
+    sector: 'Agri-tech · Hospitality',
     description:
-      'A sustainable farm and agri-tourism destination in Palawan, blending regenerative agriculture with immersive guest experiences.',
+      'A working farm and resort in Palawan advancing sustainable agriculture through hands-on farming technology and field research.',
   },
 ]
 
 const focusAreas = [
   'Digital platforms',
-  'Consumer technology',
-  'Sustainability',
-  'Scalable internet businesses',
+  'Consumer technology & e-commerce',
+  'Sustainability-driven ventures',
+  'Agri-tech & food systems',
 ]
 
 const principles = [
