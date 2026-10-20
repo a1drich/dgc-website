@@ -88,4 +88,6 @@ The footer sits at the bottom of every page. It repeats the most useful links so
 - **Portfolio**: links to each company's website, which open in a new tab. Companies without a website yet are marked **Soon**.
 - The bottom line shows the copyright notice and DGC's location.
 
+![Footer at the bottom of the Home page on a desktop screen](screenshots/home-desktop.png){ width="720" }
+
 ![Footer at the bottom of the Home page on a phone](screenshots/home-mobile.png){ width="300" }
