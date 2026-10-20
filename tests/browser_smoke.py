@@ -71,6 +71,46 @@ def run(browser, base_url, screenshots):
         print(f'PASS {device} navigation, footer, scroll-to-top; no browser errors')
 
 
+def about_grid(browser, base_url):
+    page = browser.new_page(reduced_motion='reduce')
+    try:
+        for width in [390, 639, 640, 768, 1023, 1024, 1280, 1440]:
+            page.set_viewport_size({'width': width, 'height': 900})
+            page.goto(base_url + '/about', wait_until='networkidle')
+            grid = page.locator('section').filter(
+                has=page.get_by_role('heading', name='A focused mandate, intentionally narrow.')
+            ).locator('.grid')
+            expect(grid.locator(':scope > div')).to_have_count(5)
+            layout = grid.evaluate('''el => {
+                const style = getComputedStyle(el);
+                const rect = el.getBoundingClientRect();
+                return {
+                    right: rect.right,
+                    bottom: rect.bottom,
+                    columns: style.gridTemplateColumns.split(' ').length,
+                    gap: style.gap,
+                    radius: parseFloat(style.borderTopLeftRadius),
+                    overflow: style.overflow,
+                    items: [...el.children].map(item => {
+                        const box = item.getBoundingClientRect();
+                        return {left: box.left, right: box.right, bottom: box.bottom,
+                                background: getComputedStyle(item).backgroundColor};
+                    }),
+                    background: getComputedStyle(el.closest('section')).backgroundColor
+                };
+            }''')
+            assert layout['columns'] == (1 if width < 640 else 2 if width < 1024 else 3), width
+            assert layout['gap'] == '1px', width
+            assert layout['radius'] > 0 and layout['overflow'] == 'hidden', width
+            assert abs(layout['items'][-1]['right'] - layout['right']) < 1, f'{width}: empty final cell'
+            assert abs(layout['items'][-1]['bottom'] - layout['bottom']) < 1, width
+            assert all(item['background'] == layout['background'] for item in layout['items']), width
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), width
+            print(f'PASS About investment grid at {width}px: filled row, hairlines, rounded clipping, no overflow')
+    finally:
+        page.close()
+
+
 def hot_reload(browser, dev_url):
     page = browser.new_page()
     page.goto(dev_url + '/contact', wait_until='networkidle')
@@ -101,6 +141,7 @@ if __name__ == '__main__':
         browser = playwright.chromium.launch()
         try:
             run(browser, args.base_url.rstrip('/'), args.screenshots)
+            about_grid(browser, args.base_url.rstrip('/'))
             if args.dev_url:
                 hot_reload(browser, args.dev_url.rstrip('/'))
         finally:
