@@ -28,6 +28,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel.
 - `npm run dev` — local dev server
 - `npm run build` — production build to `dist/`
 - `npm run preview` — preview the built bundle
+- `uvx --with playwright python scripts/check_metadata.py --base-url <preview-url>` — check route metadata, client-side navigation, not-found recovery, browser errors and mobile overflow against a running production preview. Install Chromium first with `uvx --with playwright python -m playwright install chromium`
 - `uvx --with mkdocs-material mkdocs build --strict` — build the docs site to `site/`; must pass with no warnings
 - `uvx --with mkdocs-material mkdocs serve` — preview the docs site locally
 - `make screenshots` — build the site, serve it, and capture every page in `docs/manual/pages.json` at desktop and mobile widths into `docs/manual/screenshots/`. Set `PORT=<port>` to choose the preview port (default `4173`). Needs `uv`; the first run downloads Chromium
