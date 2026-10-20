@@ -25,7 +25,7 @@ From top to bottom it shows:
 - **The headline**: DGC is building the future of technology and sustainable ventures in the Philippines, with two buttons: **View portfolio** and **About DGC**.
 - **Four quick facts**: Manila headquarters, family-backed capital, a Southeast Asia growth focus and a long-term horizon.
 - **About**: a one-paragraph summary and the four areas DGC focuses on.
-- **Portfolio**: a card for each company, the same ones and in the same order as on the Portfolio page. Click a card to open that company's website in a new tab. A card marked **Coming soon** has no website yet. **See full portfolio** opens the Portfolio page.
+- **Portfolio**: the same numbered list of companies as on the Portfolio page, in two columns on a desktop screen. Click a company with an ↗ arrow to open its website in a new tab. A company marked **Coming soon** has no website yet. **See full portfolio** opens the Portfolio page.
 - **Investment philosophy**: the four principles DGC uses to choose companies.
 - **Contact us**: a button that opens the Contact page.
 
@@ -52,9 +52,10 @@ It has four parts:
 
 The Portfolio page (`/portfolio`) lists the companies DGC backs and builds: Bookmo, lyv, Comuni and The Hillside.
 
-- Each card shows the company's sector, name and a short description.
-- Click a card with an ↗ arrow to open that company's website in a new tab. The address is shown at the bottom of the card, for example `www.lyv.ph`.
-- A card marked **Coming soon** (The Hillside) has no website yet, so clicking it does nothing. It shows the company's location instead.
+- The companies are listed one per row, numbered in order. Each row shows the company's sector, name and a short description.
+- Click a row with an ↗ arrow to open that company's website in a new tab. The website address is shown beside the arrow, for example `www.lyv.ph`. On a phone, tap anywhere on the company.
+- A company marked **Coming soon** (The Hillside) has no website yet, so its row isn't a link and clicking it does nothing.
+- Keyboard users can press Tab to move from one company's link to the next. The focused row is outlined. Companies marked **Coming soon** are skipped.
 - At the bottom, **Get in touch** opens the Contact page for founders who want to talk to DGC.
 
 ![Portfolio page on a desktop screen](screenshots/portfolio-desktop.png){ width="720" }

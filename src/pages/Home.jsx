@@ -193,11 +193,13 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-16 grid border-b border-forest-900/10 md:grid-cols-2 md:gap-x-12">
             {companies.map((c, i) => (
-              <PortfolioCard key={c.name} index={i} {...c} />
+              <li key={c.name} className="border-t border-forest-900/10">
+                <PortfolioCard index={i} variant="compact" {...c} />
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 

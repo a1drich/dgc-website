@@ -58,9 +58,15 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 ## Portfolio companies listed once, in `src/data/companies.js`
 
-**Decision:** The portfolio companies (name, website, sector, description) live in one list in `src/data/companies.js`. The Home page's portfolio section, the Portfolio page and the footer all import it, and show the companies in the list's order. A company with no website yet uses `href: '#'`, which shows as **Coming soon** on cards and **Soon** in the footer.
+**Decision:** The portfolio companies (name, website, sector, description) live in one list in `src/data/companies.js`. The Home page's portfolio section, the Portfolio page and the footer all import it, and show the companies in the list's order. A company with no website yet uses `href: '#'`, which shows as **Coming soon** on the Home and Portfolio pages and **Soon** in the footer.
 
 **Why:** The list used to be copied into all three files, so removing a company meant three matching edits, and missing one left a dead link on the live site. One list keeps every place in step. `src/App.test.jsx` checks that each place shows exactly the companies in the list.
+
+## Portfolio companies shown as a numbered index, not cards
+
+**Decision:** Home and the Portfolio page show the companies with one component, `src/components/PortfolioCard.jsx`, as a numbered list separated by thin lines. The Portfolio page uses its `row` variant, which spreads each company across one full-width row on large screens. Home uses the `compact` variant in two columns. There are no shadows or boxed cards, hover and focus only change colours from the theme, and a company without a website shows **Coming soon** and is not a link. The card shows only what `src/data/companies.js` holds, with nothing written for one company.
+
+**Why:** A three-column card grid left empty slots whenever the number of companies wasn't a multiple of three (four companies left The Hillside alone on a second row). A one-column list has no empty slots at any count. Numbered rows with thin lines are how the About page already lists things, so the portfolio matches the rest of the site. Dropping the shadow also removed the card's arbitrary `rgba(...)` colour, and dropping the location line removed the "Palawan, Philippines" text that every company without a website would have shown.
 
 ## Releases go out from the `production` branch
 

@@ -22,11 +22,13 @@ export default function Portfolio() {
 
       <section className="bg-sand-50">
         <div className="mx-auto max-w-7xl px-6 pb-24 sm:pb-32 lg:px-10">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ol className="border-b border-forest-900/10">
             {companies.map((c, i) => (
-              <PortfolioCard key={c.name} index={i} {...c} />
+              <li key={c.name} className="border-t border-forest-900/10">
+                <PortfolioCard index={i} variant="row" {...c} />
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 

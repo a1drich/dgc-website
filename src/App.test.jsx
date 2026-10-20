@@ -62,7 +62,12 @@ describe('portfolio companies', () => {
       .map((h) => h.textContent)
       .filter((name) => names.includes(name))
     expect(cardNames).toEqual(names)
-    expect(within(main).getByLabelText('The Hillside — coming soon').textContent).toContain('Coming soon')
+    const comingSoon = within(main).getByLabelText('The Hillside — coming soon')
+    expect(comingSoon.textContent).toContain('Coming soon')
+    expect(comingSoon.closest('a')).toBeNull()
+    expect(comingSoon.hasAttribute('href')).toBe(false)
+    expect(within(comingSoon).queryByRole('link')).toBeNull()
+    expect(main.textContent).not.toContain('Palawan, Philippines')
     for (const c of companies) {
       const card = within(main).getByRole('heading', { level: 3, name: c.name }).closest('a, [aria-label]')
       expect(card.textContent).toContain(c.sector)
