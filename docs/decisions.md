@@ -43,3 +43,15 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 **Decision:** Inter (body text) and Fraunces (display headings) are loaded from Google Fonts with `<link>` tags in `index.html`, with `preconnect` hints and `display=swap`.
 
 **Why:** It is the simplest way to get both typefaces with no font files to host or build steps. `display=swap` shows text in a fallback font straight away instead of hiding it while the fonts load. The font stacks in `src/index.css` fall back to system fonts if Google Fonts is unavailable.
+
+## `npm run verify` is the gate, run in CI on every PR
+
+**Decision:** `npm run verify` runs ESLint, the Vitest route smoke test (`src/App.test.jsx`), `npm run build` and the strict MkDocs build, in that order, stopping at the first failure. `.github/workflows/verify.yml` runs `npm ci` and `npm run verify` on every pull request and every push to `main`. It needs no secrets and does not deploy. The Playwright checks in `tests/` and `scripts/` are not part of it.
+
+**Why:** Pushes to `main` deploy straight to dgc.ph, so a broken import, route or docs link used to go live unchecked. One command gives contributors and CI the same definition of "done". The smoke test runs in jsdom so it needs no server or browser download and finishes in seconds; the Playwright checks need a running server and Chromium, so they stay manual for changes that affect layout or behaviour in a real browser.
+
+## Node pinned with `.nvmrc`, not `engines`
+
+**Decision:** The Node major used for local work and CI is pinned in `.nvmrc`. `package.json` has no `engines` field.
+
+**Why:** Vercel reads `engines.node` to choose the Node version for production builds, so adding it would change a production setting. `.nvmrc` pins local and CI builds without touching the live build. If the production Node version should change too, that is a separate decision made in Vercel's project settings or by adding `engines` deliberately.

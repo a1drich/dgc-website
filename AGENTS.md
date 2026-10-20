@@ -7,12 +7,14 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 - Tailwind CSS v4. The theme (colours, fonts, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`
 - Vite plugins: `@vitejs/plugin-react` 4.x supports Vite up to 7, so check its peer range before moving Vite to a new major
 - Fix `npm audit` findings with `npm audit fix` plus deliberate version bumps; don't use `npm audit fix --force`, which jumps majors
+- Node version is pinned in `.nvmrc` (Node 24), which CI reads; run `nvm use` locally. There is deliberately no `engines` field in `package.json` (see `docs/decisions.md`)
+- Lint: ESLint 9 flat config (`eslint.config.js`) with the React, React Hooks and React Refresh plugins. Tests: Vitest + jsdom + Testing Library, configured under `test` in `vite.config.js`, with setup in `src/test/setup.js`. Only `src/**/*.test.{js,jsx}` files run
 - Output: static `dist/` (Vercel auto-detects Vite). `vercel.json` only holds the SPA rewrite that sends every path to `index.html`
 
 ## Routes
 - Pages live in `src/pages/` and are routed in `src/App.jsx`. Unknown paths render `src/pages/NotFound.jsx`, which sets `noindex` and drops the canonical link.
 - Each page exports a `meta` object (`title`, `description`, optional `socialTitle`) and calls `usePageMeta(meta)` (`src/hooks/usePageMeta.js`), which updates the title, description, canonical, `og:title`, `twitter:title` and `og:url` on every route change. The tags in `index.html` hold the Home values, for crawlers that don't run JavaScript.
-- **A new route** goes in the router (`src/App.jsx`), the route smoke test (if there is one) and `docs/manual/pages.json`, and gets its own `meta` title and description.
+- **A new route** goes in the router (`src/App.jsx`), the route smoke test (`src/App.test.jsx`) and `docs/manual/pages.json`, and gets its own `meta` title and description.
 
 ## GitHub
 - Repo: `a1drich/dgc-website` (personal account)
@@ -27,6 +29,13 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 - Custom domain `dgc.ph` configured in Vercel → Domains
 
 ## Commands
+**`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs `npm ci` and `npm run verify` on every pull request and push to `main`.
+
+- `npm run verify` — lint, then tests, then the production build, then the strict docs build; stops at the first failure
+- `npm run lint` — ESLint over the repo; any warning fails
+- `npm test` — run the Vitest suite once (no watch mode)
+- `npx vitest run src/App.test.jsx` — run a single test file
+- `npm run docs:build` — same as `uvx --with mkdocs-material mkdocs build --strict`
 - `npm run dev` — local dev server
 - `npm run build` — production build to `dist/`
 - `npm run preview` — preview the built bundle
@@ -37,6 +46,8 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 - `make screenshots` — build the site, serve it, and capture every page in `docs/manual/pages.json` at desktop and mobile widths into `docs/manual/screenshots/`. Set `PORT=<port>` to choose the preview port (default `4173`). Needs `uv`; the first run downloads Chromium
 
 ## Browser regression checks
+`src/App.test.jsx` is the fast route smoke test: it renders every route in jsdom with no server or browser, checks each page's heading, title and the not-found page's `noindex`, and runs in `npm run verify` and CI. It can't see styles, layout, real navigation or browser errors. The checks below cover those in a real browser against a running server, and stay manual.
+
 After `npm ci` and `npm run build`, start preview and dev servers on available ports with `--host 127.0.0.1 --port <port> --strictPort` to match the test URLs. Install the test browser once with `uv run --with playwright python -m playwright install chromium`, then run:
 
 ```sh
