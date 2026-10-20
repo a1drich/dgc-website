@@ -42,8 +42,17 @@ describe('routes', () => {
 })
 
 describe('portfolio companies', () => {
-  const names = companies.map((c) => c.name)
+  const names = ['Bookmo', 'lyv', 'Comuni', 'The Hillside']
   const linked = companies.filter((c) => c.href !== '#')
+
+  it('lists the current companies and their destinations', () => {
+    expect(companies.map(({ name, href }) => ({ name, href }))).toEqual([
+      { name: 'Bookmo', href: 'https://bookmo.ph' },
+      { name: 'lyv', href: 'https://www.lyv.ph' },
+      { name: 'Comuni', href: 'https://www.comuni.ph' },
+      { name: 'The Hillside', href: '#' },
+    ])
+  })
 
   it.each(['/', '/portfolio'])('%s shows a card for each company, in order', (path) => {
     renderAt(path)
@@ -53,6 +62,12 @@ describe('portfolio companies', () => {
       .map((h) => h.textContent)
       .filter((name) => names.includes(name))
     expect(cardNames).toEqual(names)
+    expect(within(main).getByLabelText('The Hillside — coming soon').textContent).toContain('Coming soon')
+    for (const c of companies) {
+      const card = within(main).getByRole('heading', { level: 3, name: c.name }).closest('a, [aria-label]')
+      expect(card.textContent).toContain(c.sector)
+      expect(card.textContent).toContain(c.description)
+    }
     for (const c of linked) {
       const card = within(main).getByRole('heading', { level: 3, name: c.name }).closest('a')
       expect(card.getAttribute('href')).toBe(c.href)
@@ -64,6 +79,8 @@ describe('portfolio companies', () => {
   it('the footer links to each company with a website', () => {
     renderAt('/')
     const footer = screen.getByRole('contentinfo')
+    const portfolio = within(footer).getByRole('heading', { name: 'Portfolio' }).parentElement
+    expect(within(portfolio).getAllByRole('listitem').map((item) => item.textContent.replace(/Soon|↗/g, '').trim())).toEqual(names)
     for (const c of linked) {
       const link = within(footer).getByRole('link', { name: c.name })
       expect(link.getAttribute('href')).toBe(c.href)
