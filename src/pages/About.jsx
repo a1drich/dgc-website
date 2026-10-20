@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
+import { lastRowSpan } from '../lib/lastRowSpan.js'
 
 const investAreas = [
   { title: 'Technology platforms', body: 'Software-leveraged businesses serving real, recurring needs.' },
@@ -78,7 +79,9 @@ export default function About() {
             {investAreas.map((a, i) => (
               <div
                 key={a.title}
-                className="reveal bg-sand-50 p-8"
+                className={`reveal bg-sand-50 p-8 ${
+                  i === investAreas.length - 1 ? lastRowSpan(investAreas.length) : ''
+                }`}
                 style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <p className="text-[11px] tracking-[0.22em] uppercase text-forest-700">

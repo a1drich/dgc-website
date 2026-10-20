@@ -4,7 +4,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 
 ## Stack
 - Vite 6 + React 18 (JS, no TypeScript), React Router 7 in declarative (client-only SPA) mode
-- Tailwind CSS v4. The theme (colours, fonts, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`
+- Tailwind CSS v4. The theme (colours, fonts, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`. The patterns built from it are documented in `docs/design.md`
 - Vite plugins: `@vitejs/plugin-react` 4.x supports Vite up to 7, so check its peer range before moving Vite to a new major
 - Fix `npm audit` findings with `npm audit fix` plus deliberate version bumps; don't use `npm audit fix --force`, which jumps majors
 - Node version is pinned in `.nvmrc` (Node 24), which CI reads; run `nvm use` locally. There is deliberately no `engines` field in `package.json` (see `docs/decisions.md`)
@@ -57,11 +57,13 @@ After `npm ci` and `npm run build`, start preview and dev servers on available p
 uv run --with playwright python tests/browser_smoke.py --base-url http://127.0.0.1:<preview-port> --dev-url http://127.0.0.1:<dev-port>
 ```
 
-This checks all routes and the not-found page at desktop/mobile widths, navigation, footer, scroll reset, Tailwind styles and browser errors. It also checks the Home and Portfolio company links' keyboard focus and overflow at 320–1440px, and that Coming soon headings have no hover state. The optional dev check briefly edits Contact's heading to verify hot reload and restores the original bytes in a `finally` block; run it from a clean checkout without concurrent source edits. Omit `--dev-url` for preview-only checks. `--screenshots <dir>` saves full-page captures for comparing before and after a change; point it outside `docs/` (the user manual's screenshots come from `make screenshots`).
+This checks all routes and the not-found page at desktop/mobile widths, navigation, footer, scroll reset, Tailwind styles and browser errors. It also checks the Home and Portfolio company links' keyboard focus and overflow at 320–1440px, that Coming soon headings have no hover state, and the About investment grid at mobile, tablet and desktop widths, including both sides of its breakpoints, for a filled final row, hairlines, rounded clipping and overflow. The optional dev check briefly edits Contact's heading to verify hot reload and restores the original bytes in a `finally` block; run it from a clean checkout without concurrent source edits. Omit `--dev-url` for preview-only checks. `--screenshots <dir>` saves full-page captures for comparing before and after a change; point it outside `docs/` (the user manual's screenshots come from `make screenshots`).
 
 ## Docs
 The docs site is MkDocs with the Material theme (`mkdocs.yml`, pages in `docs/`).
 - `docs/index.md` — product brief: who the site is for and what it must say
+- `docs/design.md` — design system: tokens, type scale, shared patterns and known inconsistencies. Read it before building or restyling a page, and update it when you add a token or pattern
+- `PRODUCT.md` and `DESIGN.md` (repo root) — short pointers to `docs/index.md` and `docs/design.md` for tools and readers that look for them; keep the content in `docs/`
 - `docs/decisions.md` — decision log. Add an entry (decision + why) when you make a choice the next contributor would otherwise have to guess
 - `docs/manual/README.md` — user manual: one section per page or shared part of the site, in plain language, with desktop and mobile screenshots
 - `docs/manual/pages.json` — the pages `make screenshots` captures: `{"pages": [{"name", "path", "expect"}]}`, where `expect` is text visible on that page
