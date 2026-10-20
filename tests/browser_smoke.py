@@ -9,7 +9,7 @@ ROUTES = {
     '/about': 'A privately held family office focused on future-ready businesses.',
     '/portfolio': 'A focused set of companies, intentionally chosen.',
     '/contact': 'Let’s start a conversation.',
-    '/nope': 'Building the future of',
+    '/nope': 'We couldn’t find that page.',
 }
 
 
