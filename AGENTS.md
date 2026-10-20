@@ -1,6 +1,6 @@
 # dgc-website
 
-Static marketing site for **dgc.ph**, deployed to Vercel.
+Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors start with [`README.md`](README.md).
 
 ## Stack
 - Vite + React (JS, no TypeScript)
@@ -28,6 +28,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel.
 - `npm run dev` — local dev server
 - `npm run build` — production build to `dist/`
 - `npm run preview` — preview the built bundle
+- `make docs` — build the docs site with `--strict` (same as the `mkdocs build --strict` command below)
 - `uvx --with playwright python scripts/check_metadata.py --base-url <preview-url>` — check route metadata, client-side navigation, not-found recovery, browser errors and mobile overflow against a running production preview. Install Chromium first with `uvx --with playwright python -m playwright install chromium`
 - `uvx --with mkdocs-material mkdocs build --strict` — build the docs site to `site/`; must pass with no warnings
 - `uvx --with mkdocs-material mkdocs serve` — preview the docs site locally
