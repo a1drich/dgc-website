@@ -25,3 +25,12 @@ Static marketing site for **dgc.ph**, deployed to Vercel.
 - `npm run dev` — local dev server
 - `npm run build` — production build to `dist/`
 - `npm run preview` — preview the built bundle
+
+## Browser regression checks
+After `npm ci` and `npm run build`, start preview and dev servers on available ports with `--host 127.0.0.1 --port <port> --strictPort` to match the test URLs. Install the test browser once with `uv run --with playwright python -m playwright install chromium`, then run:
+
+```sh
+uv run --with playwright python tests/browser_smoke.py --base-url http://127.0.0.1:<preview-port> --dev-url http://127.0.0.1:<dev-port> --screenshots docs/manual/screenshots
+```
+
+This checks all routes and the Home fallback at desktop/mobile widths, navigation, footer, scroll reset, Tailwind styles and browser errors. The optional dev check briefly edits Contact's heading to verify hot reload and restores the original bytes in a `finally` block; run it from a clean checkout without concurrent source edits. Omit `--dev-url` for preview-only checks. `--screenshots` saves full-page captures; omit it to leave existing captures untouched.
