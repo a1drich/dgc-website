@@ -26,11 +26,13 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
   `GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ed25519_personal -o IdentitiesOnly=yes'`
 
 ## Deploy
-- Vercel project linked to the GitHub repo; pushes to `main` auto-deploy
+- Vercel project linked to the GitHub repo. Its production branch is `production`: pushes to `production` deploy dgc.ph
+- Merges to `main` only create a Vercel preview deployment; they don't change the live site
+- A release fast-forwards `production` to a verified commit on `main`. Only the site owner releases, so keep `main` releasable and don't push to `production`
 - Custom domain `dgc.ph` configured in Vercel → Domains
 
 ## Commands
-**`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs `npm ci` and `npm run verify` on every pull request and push to `main`.
+**`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs `npm ci` and `npm run verify` on every pull request and every push to `main` or `production`.
 
 - `npm run verify` — lint, then tests, then the production build, then the strict docs build; stops at the first failure
 - `npm run lint` — ESLint over the repo; any warning fails
