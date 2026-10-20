@@ -44,11 +44,13 @@ export default function PortfolioCard({
   return (
     <Tag
       {...rootProps}
-      className={`reveal group -mx-4 block rounded-2xl px-4 transition-colors duration-500 ${
+      className={`reveal -mx-4 block rounded-2xl px-4 transition-colors duration-500 ${
         row ? 'py-8 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:py-10' : 'py-8'
       } ${
+        // Only linked entries get `group`, so a Coming soon entry's heading
+        // never picks up the group-hover colour.
         hasLink
-          ? 'hover:bg-sand-100 focus-visible:bg-sand-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-forest-700'
+          ? 'group hover:bg-sand-100 focus-visible:bg-sand-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-forest-700'
           : ''
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
