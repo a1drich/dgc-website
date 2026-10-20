@@ -91,6 +91,54 @@ def hot_reload(browser, dev_url):
     print('PASS dev Tailwind and component hot reload without document reload; source restored')
 
 
+def portfolio_keyboard(browser, base_url):
+    """Both layouts must expose linked companies to Tab with a visible outline."""
+    for width in [320, 390, 768, 1024, 1440]:
+        page = browser.new_page(viewport={'width': width, 'height': 900}, reduced_motion='reduce')
+        for route in ['/', '/portfolio']:
+            page.goto(base_url + route, wait_until='networkidle')
+            entries = page.locator('main ol > li > a, main ol > li > article')
+            assert entries.count() == 4
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'{route} at {width}: overflow'
+            links = entries.locator('xpath=self::a')
+            assert links.count() == 3
+            coming_soon = entries.locator('xpath=self::article')
+            assert coming_soon.get_attribute('href') is None
+            assert coming_soon.locator('a, button, [tabindex]').count() == 0
+            # Enter through Tab, rather than focus(), so :focus-visible is exercised.
+            links.first.evaluate("el => { el.tabIndex = -1; el.focus(); el.removeAttribute('tabindex'); }")
+            page.keyboard.press('Shift+Tab')
+            for index in range(links.count()):
+                page.keyboard.press('Tab')
+                link = links.nth(index)
+                expect(link).to_be_focused()
+                assert link.get_attribute('target') == '_blank'
+                assert link.evaluate("el => { const s = getComputedStyle(el); return s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) >= 2 }")
+            page.keyboard.press('Tab')
+            assert not coming_soon.evaluate('el => el.contains(document.activeElement)')
+            print(f'PASS {route} at {width}px: three keyboard links with focus outlines; Coming soon skipped; no overflow')
+        page.close()
+
+
+def portfolio_coming_soon_hover(browser, base_url):
+    """An unavailable company's heading must not imply interactivity on hover."""
+    page = browser.new_page(viewport={'width': 1440, 'height': 900}, reduced_motion='reduce')
+    failures = []
+    for route in ['/', '/portfolio']:
+        page.goto(base_url + route, wait_until='networkidle')
+        heading = page.get_by_role('article', name='The Hillside — coming soon').locator('h3')
+        page.mouse.move(0, 0)
+        before = heading.evaluate('el => getComputedStyle(el).color')
+        heading.hover()
+        page.wait_for_timeout(900)  # Includes the entry's stagger and colour transition.
+        after = heading.evaluate('el => getComputedStyle(el).color')
+        if before != after:
+            failures.append(f'{route}: Coming soon heading changes colour on hover ({before} -> {after})')
+    page.close()
+    assert not failures, '\n'.join(failures)
+    print('PASS Home and Portfolio Coming soon entries have no heading hover state')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base-url', required=True)
@@ -101,6 +149,8 @@ if __name__ == '__main__':
         browser = playwright.chromium.launch()
         try:
             run(browser, args.base_url.rstrip('/'), args.screenshots)
+            portfolio_keyboard(browser, args.base_url.rstrip('/'))
+            portfolio_coming_soon_hover(browser, args.base_url.rstrip('/'))
             if args.dev_url:
                 hot_reload(browser, args.dev_url.rstrip('/'))
         finally:
