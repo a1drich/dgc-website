@@ -3,7 +3,10 @@
 Static marketing site for **dgc.ph**, deployed to Vercel.
 
 ## Stack
-- Vite + React (JS, no TypeScript)
+- Vite 6 + React 18 (JS, no TypeScript), React Router 7 in declarative (client-only SPA) mode
+- Tailwind CSS 4 via `@tailwindcss/vite` (theme configured in CSS, not `tailwind.config.js`)
+- Vite plugins: `@vitejs/plugin-react` 4.x supports Vite up to 7, so check its peer range before moving Vite to a new major
+- Fix `npm audit` findings with `npm audit fix` plus deliberate version bumps; don't use `npm audit fix --force`, which jumps majors
 - Output: static `dist/` (Vercel auto-detects Vite — no `vercel.json` needed)
 
 ## GitHub
