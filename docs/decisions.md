@@ -67,3 +67,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 **Decision:** Vercel's production branch is `production`, not `main`. Only commits on `production` deploy to dgc.ph; merges to `main` create preview deployments. A release fast-forwards `production` to a verified commit on `main`, and only the site owner releases.
 
 **Why:** Merging to `main` doesn't change the live site, so reviewed work can collect on `main` and be checked on its preview before anyone sees it. Releasing is a separate, deliberate step that the owner takes when they are ready, and a fast-forward keeps `production` an exact copy of a commit that already passed `npm run verify` on `main`.
+
+## Hairline grids fill their last row
+
+**Decision:** A grid whose dividing lines come from the container's background showing through `gap-px` (such as **What we invest in** on the About page) gives its last item the classes from `lastRowSpan(count)` in `src/lib/lastRowSpan.js`. The last item then stretches across the rest of its row at the two-column (`sm`) and three-column (`lg`) widths.
+
+**Why:** Any empty slot in such a grid shows the container's background as a solid grey block that looks like a missing card. Computing the span from the item count keeps the grid whole when items are added or removed, without moving the hairlines onto each item's borders.
