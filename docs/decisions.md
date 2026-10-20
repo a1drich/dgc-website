@@ -55,3 +55,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 **Decision:** The Node major used for local work and CI is pinned in `.nvmrc`. `package.json` has no `engines` field.
 
 **Why:** Vercel reads `engines.node` to choose the Node version for production builds, so adding it would change a production setting. `.nvmrc` pins local and CI builds without touching the live build. If the production Node version should change too, that is a separate decision made in Vercel's project settings or by adding `engines` deliberately.
+
+## Portfolio companies listed once, in `src/data/companies.js`
+
+**Decision:** The portfolio companies (name, website, sector, description) live in one list in `src/data/companies.js`. The Home page's portfolio section, the Portfolio page and the footer all import it, and show the companies in the list's order. A company with no website yet uses `href: '#'`, which shows as **Coming soon** on cards and **Soon** in the footer.
+
+**Why:** The list used to be copied into all three files, so removing a company meant three matching edits, and missing one left a dead link on the live site. One list keeps every place in step. `src/App.test.jsx` checks that each place shows exactly the companies in the list.

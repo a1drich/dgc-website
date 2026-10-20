@@ -2,42 +2,12 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import PortfolioCard from '../components/PortfolioCard.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
-
-const companies = [
-  {
-    name: 'Bookmo',
-    href: 'https://bookmo.ph',
-    sector: 'Digital Booking',
-    description:
-      'A digital booking platform connecting users with services through seamless, technology-driven experiences.',
-  },
-  {
-    name: 'Yay',
-    href: 'https://yay.ph',
-    sector: 'Proptech · Marketplace',
-    description:
-      'A trusted rental marketplace connecting landlords and renters across the Philippines — verified listings, secure payments, and protections for both sides of the lease.',
-  },
-  {
-    name: 'BabyCrate',
-    href: 'https://babycrate.ph',
-    sector: 'E-commerce · Sustainability',
-    description:
-      'A Philippine e-commerce platform curating sustainable, planet-conscious essentials for babies and mothers.',
-  },
-  {
-    name: 'The Hillside',
-    href: '#',
-    sector: 'Agri-tech · Hospitality',
-    description:
-      'A working farm and resort in Palawan advancing sustainable agriculture through hands-on farming technology and field research.',
-  },
-]
+import { companies } from '../data/companies.js'
 
 export const meta = {
   title: 'Portfolio — De Leon Group of Companies',
   description:
-    'The companies DGC backs and builds: Bookmo, Yay, BabyCrate and The Hillside, across digital platforms, e-commerce and sustainable agri-tech.',
+    'The companies DGC backs and builds: Bookmo, lyv, Comuni and The Hillside, across digital platforms, commerce tools, software and sustainable agri-tech.',
 }
 
 export default function Portfolio() {

@@ -2,37 +2,7 @@ import { Link } from 'react-router-dom'
 import PortfolioCard from '../components/PortfolioCard.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
 import usePageMeta from '../hooks/usePageMeta.js'
-
-const portfolio = [
-  {
-    name: 'Bookmo',
-    href: 'https://bookmo.ph',
-    sector: 'Digital Booking',
-    description:
-      'A digital booking platform connecting users with services through seamless, technology-driven experiences.',
-  },
-  {
-    name: 'Yay',
-    href: 'https://yay.ph',
-    sector: 'Proptech · Marketplace',
-    description:
-      'A trusted rental marketplace connecting landlords and renters across the Philippines — verified listings, secure payments, and protections for both sides of the lease.',
-  },
-  {
-    name: 'BabyCrate',
-    href: 'https://babycrate.ph',
-    sector: 'E-commerce · Sustainability',
-    description:
-      'A Philippine e-commerce platform curating sustainable, planet-conscious essentials for babies and mothers.',
-  },
-  {
-    name: 'The Hillside',
-    href: '#',
-    sector: 'Agri-tech · Hospitality',
-    description:
-      'A working farm and resort in Palawan advancing sustainable agriculture through hands-on farming technology and field research.',
-  },
-]
+import { companies } from '../data/companies.js'
 
 const focusAreas = [
   'Digital platforms',
@@ -224,7 +194,7 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {portfolio.map((c, i) => (
+            {companies.map((c, i) => (
               <PortfolioCard key={c.name} index={i} {...c} />
             ))}
           </div>

@@ -14,6 +14,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 ## Routes
 - Pages live in `src/pages/` and are routed in `src/App.jsx`. Unknown paths render `src/pages/NotFound.jsx`, which sets `noindex` and drops the canonical link.
 - Each page exports a `meta` object (`title`, `description`, optional `socialTitle`) and calls `usePageMeta(meta)` (`src/hooks/usePageMeta.js`), which updates the title, description, canonical, `og:title`, `twitter:title` and `og:url` on every route change. The tags in `index.html` hold the Home values, for crawlers that don't run JavaScript.
+- Portfolio companies are listed once in `src/data/companies.js`, which Home, Portfolio and the footer import. Add, remove or reorder companies there only, and update the Portfolio page's `meta.description`, `docs/index.md` and the user manual, which name them.
 - **A new route** goes in the router (`src/App.jsx`), the route smoke test (`src/App.test.jsx`) and `docs/manual/pages.json`, and gets its own `meta` title and description.
 
 ## GitHub

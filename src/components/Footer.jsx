@@ -1,12 +1,6 @@
 import { Link } from 'react-router-dom'
 import Logo from './Logo.jsx'
-
-const portfolio = [
-  { name: 'Bookmo', href: 'https://bookmo.ph' },
-  { name: 'Yay', href: 'https://yay.ph' },
-  { name: 'BabyCrate', href: 'https://babycrate.ph' },
-  { name: 'The Hillside', href: '#' },
-]
+import { companies } from '../data/companies.js'
 
 const nav = [
   { to: '/', label: 'Home' },
@@ -58,7 +52,7 @@ export default function Footer() {
               Portfolio
             </h3>
             <ul className="mt-5 space-y-3 text-[15px]">
-              {portfolio.map((p) => {
+              {companies.map((p) => {
                 const hasLink = p.href && p.href !== '#'
                 return (
                   <li key={p.name}>
