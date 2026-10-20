@@ -13,7 +13,7 @@ This page is the product brief for **dgc.ph**, the public website of De Leon Gro
 - DGC is a privately held, family-backed office based in Manila, Philippines.
 - It invests in and builds companies across technology, digital platforms and sustainability-driven industries.
 - Its capital is patient and long-term, and it partners closely with founders.
-- Which companies it backs today (Bookmo, Yay, BabyCrate and The Hillside), with links to the live ones.
+- Which companies it backs today (Bookmo, lyv, Comuni and The Hillside), with links to the live ones.
 - How to get in touch: `contact@dgc.ph`.
 
 ## The four pages

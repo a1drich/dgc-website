@@ -25,7 +25,7 @@ From top to bottom it shows:
 - **The headline**: DGC is building the future of technology and sustainable ventures in the Philippines, with two buttons: **View portfolio** and **About DGC**.
 - **Four quick facts**: Manila headquarters, family-backed capital, a Southeast Asia growth focus and a long-term horizon.
 - **About**: a one-paragraph summary and the four areas DGC focuses on.
-- **Portfolio**: a card for each company. Click a card to open that company's website in a new tab. A card marked **Coming soon** has no website yet. **See full portfolio** opens the Portfolio page.
+- **Portfolio**: a card for each company, the same ones and in the same order as on the Portfolio page. Click a card to open that company's website in a new tab. A card marked **Coming soon** has no website yet. **See full portfolio** opens the Portfolio page.
 - **Investment philosophy**: the four principles DGC uses to choose companies.
 - **Contact us**: a button that opens the Contact page.
 
@@ -50,10 +50,10 @@ It has four parts:
 
 ## Portfolio
 
-The Portfolio page (`/portfolio`) lists the companies DGC backs and builds: Bookmo, Yay, BabyCrate and The Hillside.
+The Portfolio page (`/portfolio`) lists the companies DGC backs and builds: Bookmo, lyv, Comuni and The Hillside.
 
 - Each card shows the company's sector, name and a short description.
-- Click a card with an ↗ arrow to open that company's website in a new tab. The address is shown at the bottom of the card.
+- Click a card with an ↗ arrow to open that company's website in a new tab. The address is shown at the bottom of the card, for example `www.lyv.ph`.
 - A card marked **Coming soon** (The Hillside) has no website yet, so clicking it does nothing. It shows the company's location instead.
 - At the bottom, **Get in touch** opens the Contact page for founders who want to talk to DGC.
 
@@ -99,7 +99,7 @@ The footer sits at the bottom of every page. It repeats the most useful links so
 
 - **contact@dgc.ph**: click to open your email app with a new email to DGC.
 - **Navigate**: links to Home, About, Portfolio and Contact.
-- **Portfolio**: links to each company's website, which open in a new tab. Companies without a website yet are marked **Soon**.
+- **Portfolio**: links to each company's website (Bookmo, lyv and Comuni), which open in a new tab. The Hillside has no website yet and is marked **Soon**.
 - The bottom line shows the copyright notice and DGC's location.
 
 ![Footer at the bottom of the Home page on a desktop screen](screenshots/home-desktop.png){ width="720" }
