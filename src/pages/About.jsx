@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
+import usePageMeta from '../hooks/usePageMeta.js'
 
 const investAreas = [
   { title: 'Technology platforms', body: 'Software-leveraged businesses serving real, recurring needs.' },
@@ -17,7 +18,14 @@ const approach = [
   { k: '04', title: 'Durable, scalable growth', body: 'We optimize for compounding fundamentals over short-cycle metrics.' },
 ]
 
+export const meta = {
+  title: 'About DGC — De Leon Group of Companies',
+  description:
+    'Who De Leon Group of Companies is: a privately held, family-backed office in the Philippines, what it invests in and how it works with founders.',
+}
+
 export default function About() {
+  usePageMeta(meta)
   return (
     <>
       <PageHeader

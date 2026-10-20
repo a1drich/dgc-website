@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PortfolioCard from '../components/PortfolioCard.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
+import usePageMeta from '../hooks/usePageMeta.js'
 
 const portfolio = [
   {
@@ -59,7 +60,15 @@ const principles = [
   },
 ]
 
+export const meta = {
+  title: 'De Leon Group of Companies — Technology & Sustainable Ventures in the Philippines',
+  description:
+    'De Leon Group of Companies (DGC) is a Philippine-based family office investing in and building companies across technology, digital platforms, and sustainability-driven industries.',
+  socialTitle: 'De Leon Group of Companies — DGC',
+}
+
 export default function Home() {
+  usePageMeta(meta)
   return (
     <>
       {/* HERO */}
