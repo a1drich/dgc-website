@@ -46,9 +46,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 ## `npm run verify` is the gate, run in CI on every PR
 
-**Decision:** `npm run verify` runs ESLint, the Vitest route smoke test (`src/App.test.jsx`), `npm run build` and the strict MkDocs build, in that order, stopping at the first failure. `.github/workflows/verify.yml` runs `npm ci` and `npm run verify` on every pull request and every push to `main`. It needs no secrets and does not deploy. The Playwright checks in `tests/` and `scripts/` are not part of it.
+**Decision:** `npm run verify` runs ESLint, the Vitest route smoke test (`src/App.test.jsx`), `npm run build` and the strict MkDocs build, in that order, stopping at the first failure. `.github/workflows/verify.yml` runs `npm ci` and `npm run verify` on every pull request and every push to `main` or `production`. It needs no secrets and does not deploy. The Playwright checks in `tests/` and `scripts/` are not part of it.
 
-**Why:** Pushes to `main` deploy straight to dgc.ph, so a broken import, route or docs link used to go live unchecked. One command gives contributors and CI the same definition of "done". The smoke test runs in jsdom so it needs no server or browser download and finishes in seconds; the Playwright checks need a running server and Chromium, so they stay manual for changes that affect layout or behaviour in a real browser.
+**Why:** `main` is what gets released to production, so a broken import, route or docs link merged there used to reach dgc.ph at the next release unchecked. Running it on pushes to `production` as well verifies the exact commit that goes live. One command gives contributors and CI the same definition of "done". The smoke test runs in jsdom so it needs no server or browser download and finishes in seconds; the Playwright checks need a running server and Chromium, so they stay manual for changes that affect layout or behaviour in a real browser.
 
 ## Node pinned with `.nvmrc`, not `engines`
 
@@ -61,3 +61,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 **Decision:** The portfolio companies (name, website, sector, description) live in one list in `src/data/companies.js`. The Home page's portfolio section, the Portfolio page and the footer all import it, and show the companies in the list's order. A company with no website yet uses `href: '#'`, which shows as **Coming soon** on cards and **Soon** in the footer.
 
 **Why:** The list used to be copied into all three files, so removing a company meant three matching edits, and missing one left a dead link on the live site. One list keeps every place in step. `src/App.test.jsx` checks that each place shows exactly the companies in the list.
+
+## Releases go out from the `production` branch
+
+**Decision:** Vercel's production branch is `production`, not `main`. Only commits on `production` deploy to dgc.ph; merges to `main` create preview deployments. A release fast-forwards `production` to a verified commit on `main`, and only the site owner releases.
+
+**Why:** Merging to `main` doesn't change the live site, so reviewed work can collect on `main` and be checked on its preview before anyone sees it. Releasing is a separate, deliberate step that the owner takes when they are ready, and a fast-forward keeps `production` an exact copy of a commit that already passed `npm run verify` on `main`.

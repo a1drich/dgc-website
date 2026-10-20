@@ -45,7 +45,12 @@ Vite prints the local URL to open. Owner-specific git and SSH notes are in [`AGE
 
 ## How changes go live
 
-Work on a branch and open a pull request to `main`. Merging to `main` auto-deploys to dgc.ph through Vercel, so `main` must always be releasable.
+Changes reach dgc.ph in two steps:
+
+1. **Pull request to `main`.** Work on a branch and open a pull request to `main`. Vercel builds a preview deployment for it, and merging to `main` creates another preview. Neither changes the live site.
+2. **Release.** The site owner brings the `production` branch up to a verified commit on `main` (a fast-forward of `production` to `main`). Vercel's production branch is `production`, so that push deploys to dgc.ph.
+
+A merged change is not live until it has been released. Any commit on `main` can be released, so `main` must always stay releasable. Only the site owner releases.
 
 ## Docs and conventions
 
