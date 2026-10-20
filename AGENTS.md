@@ -28,13 +28,13 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 ## Deploy
 - Vercel project linked to the GitHub repo. Its production branch is `production`: pushes to `production` deploy dgc.ph
 - Merges to `main` only create a Vercel preview deployment; they don't change the live site
-- A release fast-forwards `production` to a verified commit on `main`. Only the site owner releases, so keep `main` releasable and don't push to `production`
+- A release fast-forwards `production` to a verified commit on `main`. `make release` does this from a checkout of that commit, and `make rollback REF=<commit>` puts an earlier one back. Only the site owner releases, so keep `main` releasable, don't push to `production` and never run either command
 - Custom domain `dgc.ph` configured in Vercel → Domains
 
 ## Commands
 **`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs `npm ci` and `npm run verify` on every pull request and every push to `main` or `production`.
 
-- `npm run verify` — lint, then tests, then the production build, then the strict docs build; stops at the first failure
+- `npm run verify` — installs dependencies with `npm ci` if `node_modules` is missing (so it works on a fresh clone), then lint, then tests, then the production build, then the strict docs build; stops at the first failure
 - `npm run lint` — ESLint over the repo; any warning fails
 - `npm test` — run the Vitest suite once (no watch mode)
 - `npx vitest run src/App.test.jsx` — run a single test file

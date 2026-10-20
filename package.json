@@ -10,6 +10,7 @@
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
     "docs:build": "uvx --with mkdocs-material mkdocs build --strict",
+    "preverify": "test -d node_modules || npm ci",
     "verify": "npm run lint && npm test && npm run build && npm run docs:build"
   },
   "dependencies": {

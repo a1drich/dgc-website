@@ -1,6 +1,6 @@
 PORT ?= 4173
 
-.PHONY: screenshots docs
+.PHONY: screenshots docs release rollback
 
 # Build the site, serve the production bundle and capture every page in
 # docs/manual/pages.json at desktop and mobile widths. Readiness waits for
@@ -25,3 +25,14 @@ screenshots:
 # Build the docs site; fails on any warning.
 docs:
 	uvx --with mkdocs-material mkdocs build --strict
+
+# Put the checked-out commit live: Vercel deploys every push to `production`.
+# Only on the site owner's approval.
+release:
+	git push origin HEAD:refs/heads/production
+
+# Put an earlier commit back live: make rollback REF=<commit>. Without the REF
+# check, an empty REF would push `:refs/heads/production` and delete the branch.
+rollback:
+	@test -n "$(REF)" || { echo "usage: make rollback REF=<commit>"; exit 1; }
+	git push --force origin $(REF):refs/heads/production
