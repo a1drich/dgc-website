@@ -23,3 +23,5 @@ yarn-error.log*
 pnpm-debug.log*
 
 .vercel
+site/
+.preview.log
