@@ -1,7 +1,15 @@
 import { useState } from 'react'
 import PageHeader from '../components/PageHeader.jsx'
+import usePageMeta from '../hooks/usePageMeta.js'
+
+export const meta = {
+  title: 'Contact — De Leon Group of Companies',
+  description:
+    'Get in touch with De Leon Group of Companies. Email contact@dgc.ph or send a message to DGC’s team in Manila, Philippines.',
+}
 
 export default function Contact() {
+  usePageMeta(meta)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
   const onChange = (e) =>

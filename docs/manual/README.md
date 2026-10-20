@@ -1,6 +1,6 @@
 # User manual
 
-This page is the user manual for dgc.ph: it describes each page of the website and the navigation bar and footer that appear on every page, what each one is for and how to use it. Screenshots show the site on a desktop screen and on a phone.
+This page is the user manual for dgc.ph: it describes each page of the website, the page shown for addresses that don't exist, and the navigation bar and footer that appear on every page, what each one is for and how to use it. Screenshots show the site on a desktop screen and on a phone.
 
 ## Navigation bar
 
@@ -18,7 +18,7 @@ The navigation bar sits at the top of every page and stays there as you scroll. 
 
 ## Home
 
-The Home page (`/`) introduces DGC in one screen and gives a short tour of everything else on the site. Visitors who open an address that doesn't exist on the site also see this page.
+The Home page (`/`) introduces DGC in one screen and gives a short tour of everything else on the site.
 
 From top to bottom it shows:
 
@@ -78,6 +78,20 @@ The box also shows DGC's office location (Manila, Philippines) and a tip for fou
 ![Contact page on a desktop screen](screenshots/contact-desktop.png){ width="720" }
 
 ![Contact page on a phone](screenshots/contact-mobile.png){ width="300" }
+
+## Page not found
+
+The page-not-found page appears when a visitor opens an address that doesn't exist on the site, for example a mistyped link such as `dgc.ph/abuot` or an old link to a page that has been removed.
+
+- The heading says **We couldn’t find that page.**, with one sentence explaining that the link may be mistyped or out of date.
+- **Go to home** opens the Home page.
+- **Contact us** opens the Contact page, for visitors who want to ask DGC about what they were looking for.
+- The navigation bar and footer work as on every other page.
+- The browser tab shows **Page not found**, and search engines are asked not to list the address.
+
+![Page-not-found page on a desktop screen](screenshots/not-found-desktop.png){ width="720" }
+
+![Page-not-found page on a phone](screenshots/not-found-mobile.png){ width="300" }
 
 ## Footer
 
