@@ -1,0 +1,23 @@
+site_name: dgc.ph docs
+site_description: Product brief, decision log and user manual for the dgc.ph website
+repo_url: https://github.com/a1drich/dgc-website
+repo_name: a1drich/dgc-website
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - content.code.copy
+
+markdown_extensions:
+  - attr_list
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+
+nav:
+  - Product brief: index.md
+  - Decision log: decisions.md
+  - User manual: manual/README.md
