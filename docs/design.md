@@ -116,7 +116,7 @@ On `forest-900` sections, use `text-sand-100/60` for the text and `bg-sand-100/4
 - **Hairline rows:** each item has `border-t` in a faint tint (`border-forest-900/10` on light, `border-sand-100/10` on dark) and vertical padding. In the "Our approach" list each row has the number in `text-[12px] tracking-[0.22em] uppercase text-sand-100/40` beside a `font-display text-2xl` title and body text. The Home "About" focus list uses the same rows with a small `forest-700` dot instead of a number.
 - **Hairline grid:** a grid with `gap-px overflow-hidden rounded-2xl` on a faint tinted background (`bg-forest-900/10` or `bg-sand-100/10`), whose cells use the section's own background, so the gaps show as lines. "What we invest in" numbers its cells with `String(i + 1).padStart(2, '0')` in `text-[11px] tracking-[0.22em] uppercase text-forest-700`.
 
-Numbers come from the item's position or a `k` field in the data, so reordering the list keeps them in sequence.
+Numbers come from the item's position or a `k` field in the data. Index-derived numbers update automatically when reordered; the hard-coded `k` values in About's `approach` array must be updated when items move.
 
 **Used in:** `src/pages/About.jsx` ("Our approach" rows and "What we invest in" grid).
 
@@ -160,7 +160,7 @@ Home runs hero → `sand-100` → `sand-50` → `forest-900` → `sand-100` → 
 
 **What:** elements fade in and rise 16 px as they scroll into view, over 900 ms with an ease-out curve.
 
-**When:** on headings, paragraphs, cards and list items, so a page settles in rather than appearing at once. Not on navigation, the footer or form fields.
+**When:** on headings, paragraphs, cards and list items, so a page settles in rather than appearing at once. Navigation and the footer do not reveal. On Contact, the form reveals as one block; its fields are not individually staggered.
 
 **How:** add the `reveal` class. The `useReveal` hook (`src/hooks/useReveal.js`, called once in `src/App.jsx`) adds `is-visible` to each `.reveal` element when it enters the viewport, and runs again on every route change. Stagger items in a list with an inline ``style={{ transitionDelay: `${i * 70}ms` }}`` (70–80 ms per item; 120 ms for a lead under its heading). Browsers without `IntersectionObserver` show everything immediately.
 
