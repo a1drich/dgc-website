@@ -8,6 +8,12 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 **Why:** It is a small marketing site with four pages and no data that changes per visitor. Static files are cheap and fast to host on Vercel, there is no server to maintain or secure, and Vercel detects Vite and deploys it with no extra setup.
 
+## Stay on Vite 6 and fix audit findings without `--force`
+
+**Decision:** The build uses Vite 6 (`^6.4.4`) with `@vitejs/plugin-react` 4.x. Dependency advisories are fixed with `npm audit fix` and deliberate version bumps, never `npm audit fix --force`.
+
+**Why:** Vite 6.4.3 and later clear the esbuild dev-server advisory (GHSA-67mh-4wv8-2f99), and both installed Vite plugins already support Vite 6, so it was the smallest upgrade that left `npm audit` clean. `--force` would have jumped to Vite 8, a larger migration than the fix needed. Before moving Vite to a new major, check that `@vitejs/plugin-react` and `@tailwindcss/vite` support it.
+
 ## Tailwind CSS v4 with the theme in `src/index.css`
 
 **Decision:** Styling uses Tailwind CSS v4 through the `@tailwindcss/vite` plugin. The design tokens (the `forest`, `sand`, `olive`, `gold` and `ink` colours, the Inter and Fraunces font stacks and letter-spacing) are defined in the `@theme` block of `src/index.css`. There is no `tailwind.config.js`.

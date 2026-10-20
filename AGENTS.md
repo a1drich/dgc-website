@@ -3,8 +3,10 @@
 Static marketing site for **dgc.ph**, deployed to Vercel.
 
 ## Stack
-- Vite + React (JS, no TypeScript)
+- Vite 6 + React 18 (JS, no TypeScript), React Router 7 in declarative (client-only SPA) mode
 - Tailwind CSS v4. The theme (colours, fonts, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`
+- Vite plugins: `@vitejs/plugin-react` 4.x supports Vite up to 7, so check its peer range before moving Vite to a new major
+- Fix `npm audit` findings with `npm audit fix` plus deliberate version bumps; don't use `npm audit fix --force`, which jumps majors
 - Output: static `dist/` (Vercel auto-detects Vite). `vercel.json` only holds the SPA rewrite that sends every path to `index.html`
 
 ## Routes
@@ -32,6 +34,15 @@ Static marketing site for **dgc.ph**, deployed to Vercel.
 - `uvx --with mkdocs-material mkdocs build --strict` — build the docs site to `site/`; must pass with no warnings
 - `uvx --with mkdocs-material mkdocs serve` — preview the docs site locally
 - `make screenshots` — build the site, serve it, and capture every page in `docs/manual/pages.json` at desktop and mobile widths into `docs/manual/screenshots/`. Set `PORT=<port>` to choose the preview port (default `4173`). Needs `uv`; the first run downloads Chromium
+
+## Browser regression checks
+After `npm ci` and `npm run build`, start preview and dev servers on available ports with `--host 127.0.0.1 --port <port> --strictPort` to match the test URLs. Install the test browser once with `uv run --with playwright python -m playwright install chromium`, then run:
+
+```sh
+uv run --with playwright python tests/browser_smoke.py --base-url http://127.0.0.1:<preview-port> --dev-url http://127.0.0.1:<dev-port>
+```
+
+This checks all routes and the not-found page at desktop/mobile widths, navigation, footer, scroll reset, Tailwind styles and browser errors. The optional dev check briefly edits Contact's heading to verify hot reload and restores the original bytes in a `finally` block; run it from a clean checkout without concurrent source edits. Omit `--dev-url` for preview-only checks. `--screenshots <dir>` saves full-page captures for comparing before and after a change; point it outside `docs/` (the user manual's screenshots come from `make screenshots`).
 
 ## Docs
 The docs site is MkDocs with the Material theme (`mkdocs.yml`, pages in `docs/`).
