@@ -7,6 +7,11 @@ Static marketing site for **dgc.ph**, deployed to Vercel.
 - Tailwind CSS v4. The theme (colours, fonts, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`
 - Output: static `dist/` (Vercel auto-detects Vite). `vercel.json` only holds the SPA rewrite that sends every path to `index.html`
 
+## Routes
+- Pages live in `src/pages/` and are routed in `src/App.jsx`. Unknown paths render `src/pages/NotFound.jsx`, which sets `noindex` and drops the canonical link.
+- Each page exports a `meta` object (`title`, `description`, optional `socialTitle`) and calls `usePageMeta(meta)` (`src/hooks/usePageMeta.js`), which updates the title, description, canonical, `og:title`, `twitter:title` and `og:url` on every route change. The tags in `index.html` hold the Home values, for crawlers that don't run JavaScript.
+- **A new route** goes in the router (`src/App.jsx`), the route smoke test (if there is one) and `docs/manual/pages.json`, and gets its own `meta` title and description.
+
 ## GitHub
 - Repo: `a1drich/dgc-website` (personal account)
 - Use SSH key **`~/.ssh/id_ed25519_personal`** (public: `id_ed25519_personal.pub`) for all git operations — never the work key

@@ -5,6 +5,7 @@ import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Portfolio from './pages/Portfolio.jsx'
 import Contact from './pages/Contact.jsx'
+import NotFound from './pages/NotFound.jsx'
 import useScrollToTop from './hooks/useScrollToTop.js'
 import useReveal from './hooks/useReveal.js'
 
@@ -27,7 +28,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

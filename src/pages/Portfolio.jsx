@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import PortfolioCard from '../components/PortfolioCard.jsx'
+import usePageMeta from '../hooks/usePageMeta.js'
 
 const companies = [
   {
@@ -33,7 +34,14 @@ const companies = [
   },
 ]
 
+export const meta = {
+  title: 'Portfolio — De Leon Group of Companies',
+  description:
+    'The companies DGC backs and builds: Bookmo, Yay, BabyCrate and The Hillside, across digital platforms, e-commerce and sustainable agri-tech.',
+}
+
 export default function Portfolio() {
+  usePageMeta(meta)
   return (
     <>
       <PageHeader

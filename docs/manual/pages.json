@@ -3,6 +3,7 @@
     { "name": "home", "path": "/", "expect": "Building the future of" },
     { "name": "about", "path": "/about", "expect": "Family-backed capital, built for the long term." },
     { "name": "portfolio", "path": "/portfolio", "expect": "A focused set of companies, intentionally chosen." },
-    { "name": "contact", "path": "/contact", "expect": "we read every message" }
+    { "name": "contact", "path": "/contact", "expect": "we read every message" },
+    { "name": "not-found", "path": "/does-not-exist", "expect": "We couldn’t find that page." }
   ]
 }
