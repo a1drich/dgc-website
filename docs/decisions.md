@@ -28,9 +28,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 ## Per-page title, description and canonical URL set in the browser
 
-**Decision:** Each page in `src/pages/` exports a `meta` object (title, description, and optionally a shorter social title) and passes it to `usePageMeta` (`src/hooks/usePageMeta.js`). On every route change the hook sets `document.title` and updates the description, canonical link, `og:title`, `twitter:title` and `og:url` tags already in `index.html`. Canonical and `og:url` are `https://dgc.ph` plus the path, with no trailing slash (`https://dgc.ph/` for Home). The tags in `index.html` hold the Home values.
+**Decision:** Each page in `src/pages/` exports a `meta` object (title, description, and optionally a shorter social title) and passes it to `usePageMeta` (`src/hooks/usePageMeta.js`). On every route change the hook sets `document.title` and updates the description, canonical link, `og:title`, `twitter:title` and `og:url` tags already in `index.html`. Canonical and `og:url` are `https://dgc.ph` plus the path, with no trailing slash (`https://dgc.ph/` for Home). The tags in `index.html` hold the Home values. `https://dgc.ph` is the site's main address: in Vercel → Domains, `dgc.ph` serves the production deployment and `www.dgc.ph` redirects to it with a permanent (308) redirect.
 
-**Why:** Before this, every page declared itself a copy of the home page and every tab showed the same title. A small hook needs no new dependency. Crawlers that don't run JavaScript only see `index.html`, so its tags stay as Home's.
+**Why:** Before this, every page declared itself a copy of the home page and every tab showed the same title. A small hook needs no new dependency. Crawlers that don't run JavaScript only see `index.html`, so its tags stay as Home's. `dgc.ph` is the main address because it is the shorter brand address that the site, its email (`contact@dgc.ph`) and its docs already use. A canonical URL must not point at a redirect, or search engines may ignore it or index the other host, so the host Vercel serves without a redirect has to be the canonical one, and the redirect from `www.dgc.ph` is permanent so search engines move its links to `dgc.ph`.
 
 ## Contact form opens the visitor's email app
 

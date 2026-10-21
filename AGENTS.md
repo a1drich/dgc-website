@@ -29,7 +29,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 - Vercel project linked to the GitHub repo. Its production branch is `production`: pushes to `production` deploy dgc.ph
 - Merges to `main` only create a Vercel preview deployment; they don't change the live site
 - A release fast-forwards `production` to a verified commit on `main`. `make release` does this from a checkout of that commit, and `make rollback REF=<commit>` puts an earlier one back. Only the site owner releases, so keep `main` releasable, don't push to `production` and never run either command
-- Custom domain `dgc.ph` configured in Vercel → Domains
+- Custom domain `dgc.ph` configured in Vercel → Domains. It is the main address that canonical URLs use; `www.dgc.ph` redirects to it permanently (308). See `docs/decisions.md`
 
 ## Commands
 **`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs `npm ci` and `npm run verify` on every pull request and every push to `main` or `production`.
