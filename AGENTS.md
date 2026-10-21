@@ -32,7 +32,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 - Custom domain `dgc.ph` configured in Vercel → Domains. It is the main address that canonical URLs use; `www.dgc.ph` redirects to it permanently (308). See `docs/decisions.md`
 
 ## Commands
-**`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs `npm ci` and `npm run verify` on every pull request and every push to `main` or `production`.
+**`npm run verify` must pass before you open a PR.** CI (`.github/workflows/verify.yml`) runs two jobs on every pull request and every push to `main` or `production`: `verify` runs `npm ci` and `npm run verify`, and `browser` runs the real-browser checks (`tests/browser_smoke.py` without `--dev-url`, then `scripts/check_metadata.py`) against the production preview on port 4173. Both must pass; see "Browser regression checks".
 
 - `npm run verify` — installs dependencies with `npm ci` if `node_modules` is missing (so it works on a fresh clone), then lint, then tests, then the production build, then the strict docs build; stops at the first failure
 - `npm run lint` — ESLint over the repo; any warning fails
@@ -43,18 +43,19 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 - `npm run build` — production build to `dist/`
 - `npm run preview` — preview the built bundle
 - `make docs` — build the docs site with `--strict` (same as the `mkdocs build --strict` command below)
-- `uvx --with playwright python scripts/check_metadata.py --base-url <preview-url>` — check route metadata, client-side navigation, not-found recovery, browser errors and mobile overflow against a running production preview. Install Chromium first with `uvx --with playwright python -m playwright install chromium`
+- `uvx --with playwright python scripts/check_metadata.py --base-url <preview-url>` — check route metadata, client-side navigation, not-found recovery, browser errors and mobile overflow against a running production preview. Install Chromium first with `uvx --with playwright python -m playwright install chromium`. Runs in CI's `browser` job
 - `uvx --with mkdocs-material mkdocs build --strict` — build the docs site to `site/`; must pass with no warnings
 - `uvx --with mkdocs-material mkdocs serve` — preview the docs site locally
 - `make screenshots` — build the site, serve it, and capture every page in `docs/manual/pages.json` at desktop and mobile widths into `docs/manual/screenshots/`. Set `PORT=<port>` to choose the preview port (default `4173`). Needs `uv`; the first run downloads Chromium
 
 ## Browser regression checks
-`src/App.test.jsx` is the fast route smoke test: it renders every route in jsdom with no server or browser, checks each page's heading, title and the not-found page's `noindex`, and runs in `npm run verify` and CI. It can't see styles, layout, real navigation or browser errors. The checks below cover those in a real browser against a running server, and stay manual.
+`src/App.test.jsx` is the fast route smoke test: it renders every route in jsdom with no server or browser, checks each page's heading, title and the not-found page's `noindex`, and runs in `npm run verify` and CI. It can't see styles, layout, real navigation or browser errors. The checks below cover those in a real browser against a running server. They are not part of `npm run verify` (which needs no browser), but CI's `browser` job runs both against the production preview on every pull request and push to `main` or `production`: `tests/browser_smoke.py` without `--dev-url`, then `scripts/check_metadata.py`. The `--dev-url` hot-reload check edits a source file, so it stays manual. Run them locally too when a change affects layout or behaviour in a real browser, so you see a failure before CI does.
 
-After `npm ci` and `npm run build`, start preview and dev servers on available ports with `--host 127.0.0.1 --port <port> --strictPort` to match the test URLs. Install the test browser once with `uv run --with playwright python -m playwright install chromium`, then run:
+After `npm ci` and `npm run build`, start preview and dev servers on available ports with `--host 127.0.0.1 --port <port> --strictPort` to match the test URLs. Install the test browser once with `uvx --with playwright python -m playwright install chromium`, then run:
 
 ```sh
-uv run --with playwright python tests/browser_smoke.py --base-url http://127.0.0.1:<preview-port> --dev-url http://127.0.0.1:<dev-port>
+uvx --with playwright python tests/browser_smoke.py --base-url http://127.0.0.1:<preview-port> --dev-url http://127.0.0.1:<dev-port>
+uvx --with playwright python scripts/check_metadata.py --base-url http://127.0.0.1:<preview-port>
 ```
 
 This checks all routes and the not-found page at desktop/mobile widths, navigation, footer, scroll reset, Tailwind styles and browser errors. It also checks the Home and Portfolio company links' keyboard focus and overflow at 320–1440px, that Coming soon headings have no hover state, and the About investment grid at mobile, tablet and desktop widths, including both sides of its breakpoints, for a filled final row, hairlines, rounded clipping and overflow. The optional dev check briefly edits Contact's heading to verify hot reload and restores the original bytes in a `finally` block; run it from a clean checkout without concurrent source edits. Omit `--dev-url` for preview-only checks. `--screenshots <dir>` saves full-page captures for comparing before and after a change; point it outside `docs/` (the user manual's screenshots come from `make screenshots`).
