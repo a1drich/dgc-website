@@ -20,3 +20,33 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - run: npm ci
       - run: npm run verify
+
+  # Real-browser checks against the production preview. The hot-reload check
+  # (tests/browser_smoke.py --dev-url) edits source files, so it stays manual.
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: astral-sh/setup-uv@v7
+      - run: npm ci
+      - run: npm run build
+      - name: Start preview server
+        run: |
+          nohup npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > preview.log 2>&1 &
+          for _ in $(seq 1 30); do
+            curl -fsS -o /dev/null http://127.0.0.1:4173/ && exit 0
+            sleep 1
+          done
+          cat preview.log
+          exit 1
+      - name: Install Chromium
+        run: uvx --with playwright python -m playwright install --with-deps chromium
+      - name: Browser smoke test
+        run: uvx --with playwright python tests/browser_smoke.py --base-url http://127.0.0.1:4173
+      - name: Metadata check
+        run: uvx --with playwright python scripts/check_metadata.py --base-url http://127.0.0.1:4173
