@@ -25,4 +25,4 @@ This page is the product brief for **dgc.ph**, the public website of De Leon Gro
 | Portfolio | `/portfolio` | The companies DGC backs, each linking to its own site |
 | Contact | `/contact` | Email address and a form that drafts an email to DGC |
 
-Every page shares the same [navigation bar and footer](manual/README.md#navigation-bar). The [user manual](manual/README.md) describes each page in detail, the [design system](design.md) describes how it looks, and the [decision log](decisions.md) records why the site is built the way it is.
+Every page shares the same [navigation bar and footer](manual/README.md#navigation-bar). The [user manual](manual/README.md) describes each page in detail, the [design system](design.md) describes how it looks, the [SEO strategy](seo.md) says which searches it should be found for, and the [decision log](decisions.md) records why the site is built the way it is.

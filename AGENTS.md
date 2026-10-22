@@ -64,6 +64,7 @@ This checks all routes and the not-found page at desktop/mobile widths, navigati
 The docs site is MkDocs with the Material theme (`mkdocs.yml`, pages in `docs/`).
 - `docs/index.md` — product brief: who the site is for and what it must say
 - `docs/design.md` — design system: tokens, type scale, shared patterns and known inconsistencies. Read it before building or restyling a page, and update it when you add a token or pattern
+- `docs/seo.md` — SEO strategy: target searches per page, current state and prioritised recommendations. Check it before changing a page's `meta` title or description, and update its current-state table when an SEO gap is closed
 - `PRODUCT.md` and `DESIGN.md` (repo root) — short pointers to `docs/index.md` and `docs/design.md` for tools and readers that look for them; keep the content in `docs/`
 - `docs/decisions.md` — decision log. Add an entry (decision + why) when you make a choice the next contributor would otherwise have to guess
 - `docs/manual/README.md` — user manual: one section per page or shared part of the site, in plain language, with desktop and mobile screenshots
