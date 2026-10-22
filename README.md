@@ -47,8 +47,9 @@ Vite prints the local URL to open. Owner-specific git and SSH notes are in [`AGE
 | `src/lib/` | Small plain-JavaScript helpers, with their tests. |
 | `src/test/` | The Vitest setup file. |
 | `src/index.css` | Tailwind setup and the design tokens under `@theme`. There is no `tailwind.config.js`. |
-| `src/App.jsx` | The routes. |
-| `scripts/` | Python scripts: `screenshots.py` (used by `make screenshots`) and `check_metadata.py` (route metadata checks against a running preview). |
+| `src/App.jsx` | The routes. A new route also needs its URL in `public/sitemap.xml`; `src/sitemap.test.js` fails until it is there. |
+| `public/` | Files served as-is from the site root: `robots.txt` and `sitemap.xml`. |
+| `scripts/` | Python scripts: `screenshots.py` (used by `make screenshots`) and `check_metadata.py` (`robots.txt`, `sitemap.xml` and route metadata checks against a running preview). |
 | `tests/` | `browser_smoke.py`, the manual browser regression check (see [`AGENTS.md`](AGENTS.md)). |
 | `.github/workflows/` | CI: `verify.yml` runs `npm ci` and `npm run verify` on every pull request and every push to `main` or `production`. |
 | `docs/`, `mkdocs.yml` | The docs site (MkDocs with the Material theme). |
