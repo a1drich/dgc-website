@@ -74,6 +74,19 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 **Why:** Merging to `main` doesn't change the live site, so reviewed work can collect on `main` and be checked on its preview before anyone sees it. Releasing is a separate, deliberate step that the owner takes when they are ready, and a fast-forward keeps `production` an exact copy of a commit that already passed `npm run verify` on `main`.
 
+## `main` and `production` are protected by rulesets
+
+**Decision:** Two repository rulesets in GitHub (Settings → Rules → Rulesets) protect the long-lived branches, both active and with no bypass actors:
+
+- **`main`**: changes only arrive through a pull request (no approving review required), and the PR can't be merged until the `verify` and `browser` jobs from `.github/workflows/verify.yml` pass. The PR branch doesn't have to be up to date with `main` first. Force pushes and deleting the branch are blocked, and so are direct pushes, because every change needs a PR.
+- **`production`**: the branch can't be deleted. Nothing else is restricted: updates, force pushes and commits without check results are all allowed.
+
+**Why:** `main` must always be releasable, and before the rulesets nothing stopped a PR with a red check from being merged or a mistaken push from landing on `main` directly. Nobody can bypass the `main` ruleset, the owner included, so a red check can't be merged even by accident; the owner is the only person who could approve a PR, and GitHub doesn't let you approve your own, so the PR rule requires no approvals. On `production`, deleting the branch is the one mistake with no use in a release, so it is blocked. The other rules are left off on purpose:
+
+- Force pushes stay allowed because `make rollback` moves `production` back to an earlier commit with `git push --force`.
+- Pushes aren't limited to the owner because the owner is the repository's only collaborator, and GitHub's classic push restrictions only exist for organisation repositories. A ruleset that blocked updates would either block the owner too, breaking `make release` and `make rollback`, or have to exempt the owner, and then it would restrict nobody.
+- Status checks aren't required because commits made before the `browser` job existed have no `browser` result, so a rollback to one of them would be rejected. Releases come from `main`, where the checks already passed.
+
 ## Hairline grids fill their last row
 
 **Decision:** A grid whose dividing lines come from the container's background showing through `gap-px` (such as **What we invest in** on the About page) gives its last item the classes from `lastRowSpan(count)` in `src/lib/lastRowSpan.js`. The last item then stretches across the rest of its row at the two-column (`sm`) and three-column (`lg`) widths.
