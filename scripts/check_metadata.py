@@ -1,4 +1,4 @@
-"""Check route metadata and not-found recovery against a running production preview.
+"""Check route metadata, not-found recovery, robots.txt and sitemap.xml against a running production preview.
 
 Run with: uvx --with playwright python scripts/check_metadata.py --base-url <url>
 Install Chromium first with: uvx --with playwright python -m playwright install chromium
@@ -6,6 +6,7 @@ Install Chromium first with: uvx --with playwright python -m playwright install 
 
 import argparse
 import re
+from xml.etree import ElementTree
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -76,12 +77,35 @@ def unknown_link(page, path):
     expect(page).to_have_url(re.compile(re.escape(path) + "$"))
 
 
+def check_crawler_files(request, base):
+    # Static files in public/ must be served as themselves, not fall through
+    # the SPA rewrite to index.html.
+    robots = request.get(base + "/robots.txt")
+    assert robots.status == 200, robots.status
+    assert robots.headers["content-type"].startswith("text/plain"), robots.headers["content-type"]
+    lines = [line.strip() for line in robots.text().splitlines()]
+    assert "User-agent: *" in lines, lines
+    assert "Sitemap: https://dgc.ph/sitemap.xml" in lines, lines
+    sitemap = request.get(base + "/sitemap.xml")
+    assert sitemap.status == 200, sitemap.status
+    assert "xml" in sitemap.headers["content-type"], sitemap.headers["content-type"]
+    root = ElementTree.fromstring(sitemap.body())
+    ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+    assert root.tag == ns + "urlset", root.tag
+    locs = sorted(loc.text.strip() for loc in root.iter(ns + "loc"))
+    assert locs == sorted("https://dgc.ph" + path for path in TITLES), locs
+    print("PASS robots.txt and sitemap.xml")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", required=True)
     base = parser.parse_args().base_url.rstrip("/")
     failures = []
     with sync_playwright() as p:
+        request = p.request.new_context()
+        check_crawler_files(request, base)
+        request.dispose()
         browser = p.chromium.launch()
         for width in (1440, 390):
             context = browser.new_context(viewport={"width": width, "height": 900})

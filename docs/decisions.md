@@ -92,3 +92,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 **Decision:** A grid whose dividing lines come from the container's background showing through `gap-px` (such as **What we invest in** on the About page) gives its last item the classes from `lastRowSpan(count)` in `src/lib/lastRowSpan.js`. The last item then stretches across the rest of its row at the two-column (`sm`) and three-column (`lg`) widths.
 
 **Why:** Any empty slot in such a grid shows the container's background as a solid grey block that looks like a missing card. Computing the span from the item count keeps the grid whole when items are added or removed, without moving the hairlines onto each item's borders.
+
+## `robots.txt` and `sitemap.xml` are hand-written files in `public/`
+
+**Decision:** `public/robots.txt` allows every crawler and points to `https://dgc.ph/sitemap.xml`. `public/sitemap.xml` is written by hand and lists the canonical URL of every route in `src/App.jsx` except the not-found route, in the form from [the canonical URL decision](#per-page-title-description-and-canonical-url-set-in-the-browser). `src/sitemap.test.js` reads both files and fails when the sitemap and the routes differ in either direction. The sitemap has no `lastmod`, `changefreq` or `priority`.
+
+**Why:** Vite copies `public/` to the root of `dist/`, and Vercel serves files that exist in the build before applying the SPA rewrite, so `vercel.json` doesn't change. With four routes, a plain file anyone can read is simpler than a build step that generates it, and the test catches a route added without a sitemap entry just as well. Google ignores `changefreq` and `priority`, and a `lastmod` that isn't kept accurate is ignored too, so the sitemap leaves them out rather than maintain them by hand.
