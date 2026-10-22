@@ -15,6 +15,8 @@ TITLES = {
     "/portfolio": "Portfolio — De Leon Group of Companies",
     "/contact": "Contact — De Leon Group of Companies",
 }
+# Home's social description is the shorter one in index.html.
+HOME_SOCIAL_DESCRIPTION = "A Philippine-based family office investing in technology, digital platforms, and sustainability-driven ventures."
 NOT_FOUND = "Page not found — De Leon Group of Companies"
 HEADING = "We couldn’t find that page."
 
@@ -26,6 +28,8 @@ def metadata(page):
         canonical: document.head.querySelector('link[rel="canonical"]')?.href,
         social: document.head.querySelector('meta[property="og:title"]')?.content,
         twitter: document.head.querySelector('meta[name="twitter:title"]')?.content,
+        social_description: document.head.querySelector('meta[property="og:description"]')?.content,
+        twitter_description: document.head.querySelector('meta[name="twitter:description"]')?.content,
         url: document.head.querySelector('meta[property="og:url"]')?.content
     })""")
 
@@ -37,6 +41,8 @@ def check_real(page, path, baseline=None):
     assert tags["description"], tags
     expected_social = "De Leon Group of Companies — DGC" if path == "/" else TITLES[path]
     assert tags["social"] == tags["twitter"] == expected_social, tags
+    expected_description = HOME_SOCIAL_DESCRIPTION if path == "/" else tags["description"]
+    assert tags["social_description"] == tags["twitter_description"] == expected_description, tags
     expect(page.locator('head meta[name="robots"]')).to_have_count(0)
     if baseline:
         assert tags == baseline, (tags, baseline)
@@ -47,6 +53,8 @@ def check_missing(page):
     expect(page).to_have_title(NOT_FOUND)
     expect(page.locator('head meta[name="robots"]')).to_have_attribute("content", "noindex")
     expect(page.locator('head link[rel="canonical"]')).to_have_count(0)
+    tags = metadata(page)
+    assert tags["social_description"] == tags["twitter_description"] == tags["description"], tags
     heading = page.get_by_role("heading", name=HEADING, exact=True)
     expect(heading).to_be_visible()
     # Visibility alone doesn't catch opacity:0 from a broken scroll reveal.
@@ -95,7 +103,7 @@ def main():
                 page.goto(base + path, wait_until="networkidle")
                 baselines[path] = check_real(page, path)
                 assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), path
-            for key in ("title", "description", "canonical", "social", "url"):
+            for key in ("title", "description", "canonical", "social", "social_description", "url"):
                 assert len({tags[key] for tags in baselines.values()}) == 4, key
             page.goto(base + "/", wait_until="networkidle")
             page.evaluate("window.metadataTestMarker = true")

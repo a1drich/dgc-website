@@ -11,7 +11,9 @@ document.head.innerHTML = `
   <link rel="canonical" href="https://dgc.ph/" />
   <meta property="og:title" content="" />
   <meta property="og:url" content="https://dgc.ph/" />
+  <meta property="og:description" content="" />
   <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
 `
 
 afterEach(cleanup)
