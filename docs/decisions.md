@@ -32,6 +32,12 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 **Why:** Before this, every page declared itself a copy of the home page and every tab showed the same title. A small hook needs no new dependency. Crawlers that don't run JavaScript only see `index.html`, so its tags stay as Home's. `dgc.ph` is the main address because it is the shorter brand address that the site, its email (`contact@dgc.ph`) and its docs already use. A canonical URL must not point at a redirect, or search engines may ignore it or index the other host, so the host Vercel serves without a redirect has to be the canonical one, and the redirect from `www.dgc.ph` is permanent so search engines move its links to `dgc.ph`.
 
+## One static `Organization` block in `index.html`
+
+**Decision:** The site's structured data is one schema.org `Organization` JSON-LD block, written by hand in the `<head>` of `index.html`. It states only facts in the [product brief](index.md) and the main address above: the name, "DGC", `https://dgc.ph/`, `contact@dgc.ph`, Manila, Philippines, and Home's meta description. No JavaScript adds or changes it per route. [SEO strategy → Structured data](seo.md#structured-data) lists its fields and when to update it.
+
+**Why:** Every path is served the same `index.html`, and crawlers that don't run JavaScript only see that file, so a static block reaches every crawler on every page with no script and no new dependency. Limiting it to published facts means nothing in it can be wrong or invented; a logo, social profiles or other details wait until the site owner supplies them.
+
 ## Contact form opens the visitor's email app
 
 **Decision:** The form on the Contact page does not post to a backend. On submit, `src/pages/Contact.jsx` builds a `mailto:contact@dgc.ph` link with the visitor's name, email and message as the subject and body, and the browser opens the visitor's email app with that draft.
