@@ -84,7 +84,7 @@ export default function About() {
                 }`}
                 style={{ transitionDelay: `${i * 70}ms` }}
               >
-                <p className="text-[11px] tracking-[0.22em] uppercase text-forest-700">
+                <p className="text-label tracking-label uppercase text-forest-700">
                   {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="mt-4 font-display text-2xl font-medium text-forest-900">
@@ -104,7 +104,7 @@ export default function About() {
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-10">
           <div className="grid gap-16 md:grid-cols-12">
             <div className="md:col-span-5">
-              <span className="reveal inline-flex items-center gap-3 text-[11px] tracking-[0.24em] uppercase text-sand-100/60">
+              <span className="reveal inline-flex items-center gap-3 text-label-sm tracking-eyebrow uppercase text-sand-100/60">
                 <span className="h-px w-8 bg-sand-100/40" aria-hidden="true" />
                 Our approach
               </span>
@@ -122,7 +122,7 @@ export default function About() {
                   className="reveal flex flex-col gap-3 border-t border-sand-100/10 py-8 sm:flex-row sm:gap-10"
                   style={{ transitionDelay: `${i * 70}ms` }}
                 >
-                  <p className="text-[12px] tracking-[0.22em] uppercase text-sand-100/40 sm:w-16 sm:shrink-0">
+                  <p className="text-label tracking-label uppercase text-sand-100/40 sm:w-16 sm:shrink-0">
                     {a.k}
                   </p>
                   <div>
@@ -149,7 +149,7 @@ export default function About() {
             </h2>
             <Link
               to="/contact"
-              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-sand-100 transition-all hover:bg-forest-700"
+              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-label tracking-control uppercase text-sand-100 transition-all hover:bg-forest-700"
             >
               Reach out
               <span

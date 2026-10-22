@@ -40,7 +40,7 @@ export default function Contact() {
             {/* Side info */}
             <aside className="md:col-span-4">
               <div className="reveal rounded-2xl border border-forest-900/10 bg-white p-8">
-                <p className="text-[11px] tracking-[0.22em] uppercase text-forest-700">
+                <p className="text-label-sm tracking-label uppercase text-forest-700">
                   Direct
                 </p>
                 <a
@@ -51,13 +51,13 @@ export default function Contact() {
                 </a>
                 <div className="mt-10 space-y-6 text-[15px] leading-relaxed text-ink-500">
                   <div>
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-ink-400">
+                    <p className="text-label-sm tracking-label uppercase text-ink-400">
                       Office
                     </p>
                     <p className="mt-2 text-forest-900">Manila, Philippines</p>
                   </div>
                   <div>
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-ink-400">
+                    <p className="text-label-sm tracking-label uppercase text-ink-400">
                       For founders
                     </p>
                     <p className="mt-2">
@@ -103,13 +103,13 @@ export default function Contact() {
                 />
 
                 <div className="flex flex-col items-start gap-5 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="text-[12px] text-ink-400">
+                  <p className="text-label text-ink-400">
                     Submitting opens your email client to send a draft to{' '}
                     <span className="text-forest-900">contact@dgc.ph</span>.
                   </p>
                   <button
                     type="submit"
-                    className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-sand-100 transition-all hover:bg-forest-700"
+                    className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-label tracking-control uppercase text-sand-100 transition-all hover:bg-forest-700"
                   >
                     Send message
                     <span
@@ -135,7 +135,7 @@ function Field({ label, name, as = 'input', type = 'text', rows, ...rest }) {
     'w-full border-0 border-b border-forest-900/15 bg-transparent px-0 py-3 text-[16px] text-forest-900 placeholder:text-ink-400 focus:border-forest-800 focus:outline-none focus:ring-0 transition-colors'
   return (
     <label className="block">
-      <span className="text-[11px] tracking-[0.22em] uppercase text-ink-400">
+      <span className="text-label-sm tracking-label uppercase text-ink-400">
         {label}
       </span>
       <Tag
