@@ -6,7 +6,7 @@ This page describes the visual design system of the dgc.ph website as it ships t
 
 The tokens are defined in the `@theme` block of `src/index.css` (Tailwind CSS v4 has no `tailwind.config.js`). The same file holds the two custom utilities, `.reveal` and `.bg-grain`. Everything else is built from Tailwind classes in `src/components/` and `src/pages/`.
 
-**New colours, fonts or spacing go into `@theme` first**, then get used through the class Tailwind generates for them (`bg-forest-900`, `font-display`). Don't add raw hex values or arbitrary colour values in components. This follows the [Tailwind CSS v4 decision](decisions.md#tailwind-css-v4-with-the-theme-in-srcindexcss).
+**New colours, fonts, spacing, type sizes and letter-spacings go into `@theme` first**, then get used through the class Tailwind generates for them (`bg-forest-900`, `font-display`, `text-label`, `tracking-label`). Don't add raw hex values, arbitrary colour values or arbitrary label sizes and letter-spacings (`text-[12px]`, `tracking-[0.2em]`) in components. The few arbitrary values that remain are listed under [Remaining arbitrary values](#remaining-arbitrary-values). This follows the [Tailwind CSS v4 decision](decisions.md#tailwind-css-v4-with-the-theme-in-srcindexcss).
 
 ## Tokens
 
@@ -31,12 +31,25 @@ The Contact page's cards and form use Tailwind's built-in `bg-white` on top of `
 
 Both fonts load from Google Fonts in `index.html` (see the [decision log](decisions.md#google-fonts-loaded-from-indexhtml)).
 
+### Label sizes
+
+These sizes are for the small uppercase labels only (see [Small tracked labels](#small-tracked-labels)). They set the font size and nothing else, so labels keep the line height they inherit, as before. Body text and headings use Tailwind's own sizes or the values in the [type scale](#type-scale).
+
+| Token | Value | Used for |
+| --- | --- | --- |
+| `text-label-xs` | `10px` | The "Coming soon" and footer "Soon" pills, the logo monogram |
+| `text-label-sm` | `11px` | Eyebrows, field labels, sector names, footer column titles, Home hero stat labels |
+| `text-label` | `12px` | Buttons, company website addresses, list numbers, fine print, the footer copyright line |
+| `text-label-lg` | `13px` | Navigation links, the footer email |
+
 ### Letter-spacing
 
-| Token | Value | Status |
+| Token | Value | Used for |
 | --- | --- | --- |
-| `tracking-tightest` | `-0.04em` | Defined, not used yet. |
-| `tracking-display` | `-0.02em` | Defined, not used yet. Page titles use `tracking-[-0.025em]` and section headings use Tailwind's `tracking-tight` (also `-0.025em`) instead; see [Known inconsistencies](#known-inconsistencies). |
+| `tracking-display` | `-0.025em` | Page titles (`PageHeader`) and the Home hero title. Section headings use Tailwind's `tracking-tight`, which has the same value. |
+| `tracking-eyebrow` | `0.24em` | Eyebrows |
+| `tracking-label` | `0.22em` | Field labels, sector names, footer column titles, list numbers, Home hero stat labels, the "Coming soon" and "Soon" pills, the logo wordmark |
+| `tracking-control` | `0.18em` | Buttons, navigation links, company website addresses, the footer email and copyright line, the logo monogram |
 
 ## Type scale
 
@@ -44,8 +57,8 @@ All headings are `font-display font-medium`, `text-forest-900` on light sections
 
 | Role | Classes | Example |
 | --- | --- | --- |
-| Home hero title (`h1`) | `text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] lg:leading-[1.02] tracking-[-0.025em]`; key words in `italic text-forest-700` | `src/pages/Home.jsx` |
-| Page title (`h1`) | `text-5xl sm:text-6xl md:text-7xl md:leading-[1.04] tracking-[-0.025em]` | `src/components/PageHeader.jsx` |
+| Home hero title (`h1`) | `text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] lg:leading-[1.02] tracking-display`; key words in `italic text-forest-700` | `src/pages/Home.jsx` |
+| Page title (`h1`) | `text-5xl sm:text-6xl md:text-7xl md:leading-[1.04] tracking-display` | `src/components/PageHeader.jsx` |
 | Section heading (`h2`) | `text-4xl sm:text-5xl md:text-[3.25rem] md:leading-[1.05] tracking-tight` | `src/components/SectionHeading.jsx` |
 | Closing call-to-action heading (`h2`) | `text-3xl sm:text-4xl tracking-tight` | `src/pages/About.jsx`, `src/pages/Portfolio.jsx` |
 | Company name (`h3`) | `text-4xl md:text-5xl tracking-[-0.01em]` on the Portfolio page, `text-3xl tracking-[-0.01em]` on Home | `src/components/PortfolioCard.jsx` |
@@ -53,8 +66,8 @@ All headings are `font-display font-medium`, `text-forest-900` on light sections
 | Lead under a title | `text-lg sm:text-xl leading-relaxed text-ink-500` (section leads: `text-lg`) | `src/components/PageHeader.jsx` |
 | Intro paragraph | `text-xl md:text-2xl leading-relaxed md:leading-[1.45] text-ink-700` | `src/pages/About.jsx` |
 | Body text | `text-[17px]` or `text-[15px] leading-relaxed text-ink-500` (`text-sand-100/65` on dark) | `src/pages/About.jsx` |
-| Small label | `text-[11px]`–`text-[13px] uppercase` with `tracking-[0.16em]`–`[0.24em]`; see [Small tracked labels](#small-tracked-labels) | `src/pages/Contact.jsx` |
-| Fine print | `text-[12px] text-ink-400` | `src/pages/Contact.jsx` |
+| Small label | `text-label-sm`–`text-label-lg uppercase` with `tracking-control`, `tracking-label` or `tracking-eyebrow`; see [Small tracked labels](#small-tracked-labels) | `src/pages/Contact.jsx` |
+| Fine print | `text-label text-ink-400` | `src/pages/Contact.jsx` |
 
 ## Shared patterns
 
@@ -67,7 +80,7 @@ All headings are `font-display font-medium`, `text-forest-900` on light sections
 **How:** pass `eyebrow` to `PageHeader` or `SectionHeading`, which render it. By hand:
 
 ```html
-<span class="inline-flex items-center gap-3 text-[11px] tracking-[0.24em] uppercase text-forest-700">
+<span class="inline-flex items-center gap-3 text-label-sm tracking-eyebrow uppercase text-forest-700">
   <span class="h-px w-8 bg-forest-700/50" aria-hidden="true"></span>
   Who we are
 </span>
@@ -87,10 +100,14 @@ On `forest-900` sections, use `text-sand-100/60` for the text and `bg-sand-100/4
 
 | Use | Classes |
 | --- | --- |
-| Field labels, sector names, footer column titles | `text-[11px] tracking-[0.22em] uppercase text-ink-400` (or `text-forest-700`, or `text-sand-100/50` on dark) |
-| Buttons, company website addresses | `text-[12px] tracking-[0.18em] uppercase` |
-| Navigation links, footer email | `text-[13px] tracking-[0.18em] uppercase` |
-| Eyebrows | `text-[11px] tracking-[0.24em] uppercase` |
+| Field labels, sector names, footer column titles, Home hero stat labels | `text-label-sm tracking-label uppercase text-ink-400` (or `text-forest-700`, or `text-sand-100/50` on dark) |
+| List numbers | `text-label tracking-label uppercase` |
+| Buttons, company website addresses, footer copyright line | `text-label tracking-control uppercase` |
+| Navigation links, footer email | `text-label-lg tracking-control uppercase` |
+| Eyebrows | `text-label-sm tracking-eyebrow uppercase` |
+| "Coming soon" and "Soon" pills | `text-label-xs tracking-label uppercase` |
+
+The tokens are described under [Label sizes](#label-sizes) and [Letter-spacing](#letter-spacing).
 
 **Used in:** `src/pages/Contact.jsx` (the `Field` component's label).
 
@@ -113,10 +130,10 @@ On `forest-900` sections, use `text-sand-100/60` for the text and `bg-sand-100/4
 
 **How:** two forms are used:
 
-- **Hairline rows:** each item has `border-t` in a faint tint (`border-forest-900/10` on light, `border-sand-100/10` on dark) and vertical padding. In the "Our approach" list each row has the number in `text-[12px] tracking-[0.22em] uppercase text-sand-100/40` beside a `font-display text-2xl` title and body text. The Home "About" focus list uses the same rows with a small `forest-700` dot instead of a number.
-- **Hairline grid:** a grid with `gap-px overflow-hidden rounded-2xl` on a faint tinted background (`bg-forest-900/10` or `bg-sand-100/10`), whose cells use the section's own background, so the gaps show as lines. "What we invest in" numbers its cells with `String(i + 1).padStart(2, '0')` in `text-[11px] tracking-[0.22em] uppercase text-forest-700`.
+- **Hairline rows:** each item has `border-t` in a faint tint (`border-forest-900/10` on light, `border-sand-100/10` on dark) and vertical padding. In the "Our approach" list each row has the number in `text-label tracking-label uppercase text-sand-100/40` beside a `font-display text-2xl` title and body text. The Home "About" focus list uses the same rows with a small `forest-700` dot instead of a number.
+- **Hairline grid:** a grid with `gap-px overflow-hidden rounded-2xl` on a faint tinted background (`bg-forest-900/10` or `bg-sand-100/10`), whose cells use the section's own background, so the gaps show as lines. "What we invest in" numbers its cells with `String(i + 1).padStart(2, '0')` in `text-label tracking-label uppercase text-forest-700`.
 
-- **Company index:** `PortfolioCard` (`src/components/PortfolioCard.jsx`) renders one company as a hairline row inside an `<ol>` whose `<li>`s have `border-t border-forest-900/10` and the list a closing `border-b`. It shows the number and sector in `text-[12px] tracking-[0.22em] uppercase text-ink-400`, the name as a Fraunces `h3`, the description, and either the website address with a round `↗` or a **Coming soon** pill. The `row` variant (Portfolio page) spreads this across a 12-column row from `lg`; the `compact` variant (Home, two columns from `md`) stays stacked. A company with a website is one `<a>` that opens in a new tab: on hover and keyboard focus its background goes to `sand-100`, the name and address to `forest-700`, and the `↗` fills with `forest-900` and turns 12° (only without reduced motion); focus also shows a `forest-700` outline. A company without one (`href: '#'`) is an `<article>` with no hover or focus state. There are no shadows or lifts.
+- **Company index:** `PortfolioCard` (`src/components/PortfolioCard.jsx`) renders one company as a hairline row inside an `<ol>` whose `<li>`s have `border-t border-forest-900/10` and the list a closing `border-b`. It shows the number and sector in `text-label tracking-label uppercase text-ink-400`, the name as a Fraunces `h3`, the description, and either the website address with a round `↗` or a **Coming soon** pill. The `row` variant (Portfolio page) spreads this across a 12-column row from `lg`; the `compact` variant (Home, two columns from `md`) stays stacked. A company with a website is one `<a>` that opens in a new tab: on hover and keyboard focus its background goes to `sand-100`, the name and address to `forest-700`, and the `↗` fills with `forest-900` and turns 12° (only without reduced motion); focus also shows a `forest-700` outline. A company without one (`href: '#'`) is an `<article>` with no hover or focus state. There are no shadows or lifts.
 
 Numbers come from the item's position or a `k` field in the data. Index-derived numbers update automatically when reordered; the hard-coded `k` values in About's `approach` array must be updated when items move.
 
@@ -132,9 +149,9 @@ Numbers come from the item's position or a `k` field in the data. Index-derived 
 
 | Variant | Classes |
 | --- | --- |
-| Primary | `group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-sand-100 transition-all hover:bg-forest-700` |
-| Secondary (outlined) | `group inline-flex items-center gap-3 rounded-full border border-forest-900/20 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-forest-900 transition-all hover:border-forest-900 hover:bg-forest-900/5` |
-| Navigation bar "Get in touch" | `rounded-full border border-forest-900/15 bg-white/40 px-5 py-2 text-[12px] tracking-[0.18em] uppercase`; fills with `forest-900` on hover |
+| Primary | `group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-label tracking-control uppercase text-sand-100 transition-all hover:bg-forest-700` |
+| Secondary (outlined) | `group inline-flex items-center gap-3 rounded-full border border-forest-900/20 px-7 py-4 text-label tracking-control uppercase text-forest-900 transition-all hover:border-forest-900 hover:bg-forest-900/5` |
+| Navigation bar "Get in touch" | `rounded-full border border-forest-900/15 bg-white/40 px-5 py-2 text-label tracking-control uppercase`; fills with `forest-900` on hover |
 
 The arrow is `<span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>`. Text-only links such as "See full portfolio" on Home use the same text and arrow without the pill. Links that leave the site use `↗` instead of `→`.
 
@@ -187,12 +204,22 @@ Home runs hero → `sand-100` → `sand-50` → `forest-900` → `sand-100` → 
 The same pattern uses different values in different places. They are recorded here rather than changed; pick the more common value for new work and fix the rest in a dedicated change.
 
 - **Eyebrow line width:** `w-10` in `src/components/PageHeader.jsx` and the Home hero (`src/pages/Home.jsx`), `w-8` in `src/components/SectionHeading.jsx` and the dark-section eyebrows in `src/pages/Home.jsx` and `src/pages/About.jsx`.
-- **Small label letter-spacing:** five values for one pattern. `0.24em` (eyebrows), `0.22em` (field labels, sector names, footer column titles, list numbers), `0.2em` (Home hero stats in `src/pages/Home.jsx`, "Coming soon" in `src/components/PortfolioCard.jsx`, "Soon" in `src/components/Footer.jsx`), `0.18em` (buttons, navigation, card URLs) and `0.16em` (the copyright line in `src/components/Footer.jsx`).
-- **Small label sizes:** list numbers are `text-[11px]` in "What we invest in" and `text-[12px]` in "Our approach" (both `src/pages/About.jsx`). "Coming soon" is `text-[10px]` and "Soon" `text-[9px]`.
-- **Heading letter-spacing tokens unused:** `tracking-display` and `tracking-tightest` are defined in `src/index.css` but nothing uses them. Page titles use the arbitrary `tracking-[-0.025em]` (`src/components/PageHeader.jsx`, `src/pages/Home.jsx`), section headings `tracking-tight`, and company names `tracking-[-0.01em]` (`src/components/PortfolioCard.jsx`).
 - **Dark-section headings written by hand:** `SectionHeading` has no dark variant, so the eyebrow and `h2` on `forest-900` are copied in `src/pages/Home.jsx` and `src/pages/About.jsx`.
 - **Pill button classes copied:** the primary button's classes are repeated in `src/pages/Home.jsx`, `src/pages/About.jsx`, `src/pages/Portfolio.jsx`, `src/pages/Contact.jsx` and `src/pages/NotFound.jsx` instead of coming from a shared component. Home's closing button is larger (`px-8 py-5`) than the rest (`px-7 py-4`).
 - **Secondary button:** the Home hero's "About DGC" has a `→` and `transition-all`; the not-found page's "Contact us" (`src/pages/NotFound.jsx`) has no arrow and uses `transition-colors`.
 - **Closing call-to-action heading size:** Home's is `text-4xl sm:text-5xl md:text-[3.5rem]` (`src/pages/Home.jsx`); About's and Portfolio's are `text-3xl sm:text-4xl`.
 - **Raw colour value:** the page background in `src/index.css` is the hex `#fbfaf6` (the value of `sand-50`) rather than the token.
 - **Unused tokens:** the `olive` scale, `gold-500`, `forest-50`, `forest-100`, `forest-300` to `forest-600`, `forest-950` and `sand-300` to `sand-600` are defined but not used.
+
+## Remaining arbitrary values
+
+A few arbitrary Tailwind values stay in components on purpose. Each is a one-off that a token wouldn't make easier to reuse. Anything else that repeats, such as a new label size or letter-spacing, gets a token in `@theme` instead.
+
+- **Body sizes `text-[15px]`, `text-[16px]` and `text-[17px]`:** the site's body text sits between Tailwind's `text-sm`, `text-base` and `text-lg`; giving body text its own tokens is a separate change.
+- **Large heading sizes and leadings** (`md:text-[3.25rem]`, `md:text-[3.5rem]`, `lg:text-[5.5rem]`, `lg:leading-[1.02]`, `md:leading-[1.04]`, `md:leading-[1.05]`, `md:leading-[1.45]`): breakpoint steps of the [type scale](#type-scale) that fall between Tailwind's sizes and appear only in the components listed there.
+- **Company-name tracking `tracking-[-0.01em]`** (`src/components/PortfolioCard.jsx`): used only for company names, which are tighter than body text but looser than `tracking-display`.
+- **Glow sizes `w-[28rem] h-[28rem]` and `w-[34rem] h-[34rem]`:** the blurred decorative circles behind the page headers and the Home hero.
+- **`max-h-[80vh]`** (`src/components/Navbar.jsx`): the open height of the mobile menu, tied to the screen height.
+- **`focus:z-[60]`** (`src/App.jsx`): keeps the skip link above the fixed navigation bar (`z-50`).
+- **`rotate-[-12deg]`** (`src/components/PortfolioCard.jsx`): the turn of the `↗` on a company link's hover and focus.
+- **`transition-[max-height,opacity]`** (`src/components/Navbar.jsx`): animates only the mobile menu's height and fade.

@@ -57,12 +57,12 @@ export default function Home() {
         />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="reveal flex items-center gap-3 text-[11px] tracking-[0.24em] uppercase text-forest-700">
+          <div className="reveal flex items-center gap-3 text-label-sm tracking-eyebrow uppercase text-forest-700">
             <span className="h-px w-10 bg-forest-700/50" aria-hidden="true" />
             De Leon Group of Companies · Est. Manila
           </div>
 
-          <h1 className="reveal mt-8 max-w-5xl font-display text-5xl font-medium tracking-[-0.025em] text-forest-900 sm:text-6xl md:text-7xl lg:text-[5.5rem] lg:leading-[1.02]">
+          <h1 className="reveal mt-8 max-w-5xl font-display text-5xl font-medium tracking-display text-forest-900 sm:text-6xl md:text-7xl lg:text-[5.5rem] lg:leading-[1.02]">
             Building the future of{' '}
             <span className="italic text-forest-700">technology</span> &amp;{' '}
             <span className="italic text-forest-700">sustainable</span> ventures
@@ -84,7 +84,7 @@ export default function Home() {
           >
             <Link
               to="/portfolio"
-              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-sand-100 transition-all hover:bg-forest-700"
+              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-label tracking-control uppercase text-sand-100 transition-all hover:bg-forest-700"
             >
               View portfolio
               <span
@@ -96,7 +96,7 @@ export default function Home() {
             </Link>
             <Link
               to="/about"
-              className="group inline-flex items-center gap-3 rounded-full border border-forest-900/20 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-forest-900 transition-all hover:border-forest-900 hover:bg-forest-900/5"
+              className="group inline-flex items-center gap-3 rounded-full border border-forest-900/20 px-7 py-4 text-label tracking-control uppercase text-forest-900 transition-all hover:border-forest-900 hover:bg-forest-900/5"
             >
               About DGC
               <span
@@ -122,7 +122,7 @@ export default function Home() {
                 <p className="font-display text-2xl font-medium text-forest-900 sm:text-3xl">
                   {s.k}
                 </p>
-                <p className="mt-1 text-[11px] tracking-[0.2em] uppercase text-ink-400">
+                <p className="mt-1 text-label-sm tracking-label uppercase text-ink-400">
                   {s.v}
                 </p>
               </div>
@@ -181,7 +181,7 @@ export default function Home() {
             />
             <Link
               to="/portfolio"
-              className="reveal group inline-flex items-center gap-2 self-start text-[12px] tracking-[0.18em] uppercase text-forest-900 md:self-end"
+              className="reveal group inline-flex items-center gap-2 self-start text-label tracking-control uppercase text-forest-900 md:self-end"
             >
               See full portfolio
               <span
@@ -208,7 +208,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-10">
           <div className="grid gap-16 md:grid-cols-12">
             <div className="md:col-span-5">
-              <span className="reveal inline-flex items-center gap-3 text-[11px] tracking-[0.24em] uppercase text-sand-100/60">
+              <span className="reveal inline-flex items-center gap-3 text-label-sm tracking-eyebrow uppercase text-sand-100/60">
                 <span className="h-px w-8 bg-sand-100/40" aria-hidden="true" />
                 Investment Philosophy
               </span>
@@ -262,7 +262,7 @@ export default function Home() {
             </h2>
             <Link
               to="/contact"
-              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-8 py-5 text-[12px] tracking-[0.18em] uppercase text-sand-100 transition-all hover:bg-forest-700"
+              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-8 py-5 text-label tracking-control uppercase text-sand-100 transition-all hover:bg-forest-700"
             >
               Contact us
               <span

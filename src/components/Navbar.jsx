@@ -59,7 +59,7 @@ export default function Navbar() {
                   to={l.to}
                   end={l.to === '/'}
                   className={({ isActive }) =>
-                    `text-[13px] tracking-[0.18em] uppercase transition-colors ${
+                    `text-label-lg tracking-control uppercase transition-colors ${
                       isActive
                         ? 'text-forest-900'
                         : 'text-ink-500 hover:text-forest-900'
@@ -75,7 +75,7 @@ export default function Navbar() {
 
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center gap-2 rounded-full border border-forest-900/15 bg-white/40 px-5 py-2 text-[12px] tracking-[0.18em] uppercase text-forest-900 transition-all hover:bg-forest-900 hover:text-sand-100 hover:border-forest-900"
+          className="hidden md:inline-flex items-center gap-2 rounded-full border border-forest-900/15 bg-white/40 px-5 py-2 text-label tracking-control uppercase text-forest-900 transition-all hover:bg-forest-900 hover:text-sand-100 hover:border-forest-900"
         >
           Get in touch
           <span aria-hidden="true">→</span>
@@ -129,7 +129,7 @@ export default function Navbar() {
           </ul>
           <Link
             to="/contact"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-forest-900 px-6 py-3 text-[12px] tracking-[0.18em] uppercase text-sand-100"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-forest-900 px-6 py-3 text-label tracking-control uppercase text-sand-100"
           >
             Get in touch <span aria-hidden="true">→</span>
           </Link>

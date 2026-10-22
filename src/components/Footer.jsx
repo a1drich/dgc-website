@@ -22,7 +22,7 @@ export default function Footer() {
             </p>
             <a
               href="mailto:contact@dgc.ph"
-              className="mt-8 inline-flex items-center gap-3 text-[13px] tracking-[0.18em] uppercase text-sand-100 hover:text-gold-400 transition-colors"
+              className="mt-8 inline-flex items-center gap-3 text-label-lg tracking-control uppercase text-sand-100 hover:text-gold-400 transition-colors"
             >
               <span className="h-px w-8 bg-sand-100/40" aria-hidden="true" />
               contact@dgc.ph
@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <h3 className="text-[11px] tracking-[0.22em] uppercase text-sand-100/50">
+            <h3 className="text-label-sm tracking-label uppercase text-sand-100/50">
               Navigate
             </h3>
             <ul className="mt-5 space-y-3 text-[15px]">
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-4">
-            <h3 className="text-[11px] tracking-[0.22em] uppercase text-sand-100/50">
+            <h3 className="text-label-sm tracking-label uppercase text-sand-100/50">
               Portfolio
             </h3>
             <ul className="mt-5 space-y-3 text-[15px]">
@@ -74,7 +74,7 @@ export default function Footer() {
                     ) : (
                       <span className="inline-flex items-center gap-2 text-sand-100/85">
                         {p.name}
-                        <span className="text-[9px] tracking-[0.2em] uppercase text-sand-100/40">
+                        <span className="text-label-xs tracking-label uppercase text-sand-100/40">
                           Soon
                         </span>
                       </span>
@@ -86,7 +86,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-sand-100/10 pt-8 text-[12px] tracking-[0.16em] uppercase text-sand-100/50 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-sand-100/10 pt-8 text-label tracking-control uppercase text-sand-100/50 md:flex-row md:items-center md:justify-between">
           <p>© 2026 De Leon Group of Companies (DGC). All rights reserved.</p>
           <p>Manila · Philippines</p>
         </div>
