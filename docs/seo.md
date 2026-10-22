@@ -75,7 +75,7 @@ What is in place on dgc.ph today, and what is missing.
 | **Canonical host** | `https://dgc.ph` is the main address; `www.dgc.ph` redirects to it with a permanent (308) redirect, and canonical URLs use `dgc.ph` with no trailing slash ([decision](decisions.md#per-page-title-description-and-canonical-url-set-in-the-browser)). | None. |
 | **`robots.txt`** | `public/robots.txt` allows every crawler and gives the sitemap's address. It is served as plain text, not through the SPA rewrite, and `scripts/check_metadata.py` checks it in CI. | None. |
 | **`sitemap.xml`** | `public/sitemap.xml` lists the canonical URLs of the four pages, not the not-found page. `src/sitemap.test.js` fails if it and the routes in `src/App.jsx` differ, and `scripts/check_metadata.py` checks that it is served as XML ([decision](decisions.md#robotstxt-and-sitemapxml-are-hand-written-files-in-public)). | Not yet submitted in Search Console or Bing Webmaster Tools (see [Accounts and access](#accounts-and-access)). |
-| **Structured data** | None. | No machine-readable statement of who DGC is (name, address, email, main address), which helps brand searches resolve to the right organisation. Tracked in [#42](https://github.com/a1drich/dgc-website/issues/42). |
+| **Structured data** | One `Organization` JSON-LD block in `index.html`, the same on every path (see [Structured data](#structured-data)). | No `logo` or `sameAs` (social profiles) until the site owner supplies them; a logo could come with recommendation 6. |
 | **Social preview image** | `twitter:card` is `summary_large_image`, but there is no `og:image` or `twitter:image`. | Shared links show no image, and the large-image card has nothing to show. |
 | **Favicon** | An SVG embedded in `index.html` as a `data:` URL. | Google's favicon guidelines ask for an icon file at a URL Google can crawl, so dgc.ph results may show a generic icon instead of DGC's. |
 | **Not-found handling** | Unknown paths return HTTP 200 with a not-found page that adds `noindex` and drops the canonical link ([decision](decisions.md#spa-rewrite-in-verceljson-and-unknown-paths-show-a-not-found-page-with-noindex)). | Search engines drop those URLs, but only after rendering the page. They may report them as soft 404s. |
@@ -86,6 +86,24 @@ What is in place on dgc.ph today, and what is missing.
 | **Mobile** | Viewport tag is set, and CI's browser checks confirm there is no sideways overflow on every page from 320 px wide. | None known. |
 | **Search Console and Bing Webmaster Tools** | Nothing records whether either is set up for `dgc.ph`. | No data on which searches show dgc.ph, which pages are indexed, or crawl errors. |
 
+## Structured data
+
+`index.html` has one `<script type="application/ld+json">` block in its `<head>` that describes DGC as a schema.org `Organization`. Every path is served that same file, so every crawler sees the block on every page, including crawlers that don't run JavaScript. It is static: `usePageMeta` and the rest of the app never add, change or remove it.
+
+It states only facts the site already publishes:
+
+| Field | Value | Source |
+| --- | --- | --- |
+| `name`, `alternateName` | De Leon Group of Companies, DGC | [Product brief](index.md) |
+| `url` | `https://dgc.ph/` | [Main address decision](decisions.md#per-page-title-description-and-canonical-url-set-in-the-browser) |
+| `email` | `contact@dgc.ph` | [Product brief](index.md#what-the-site-must-say) |
+| `address` | `PostalAddress` with `addressLocality` Manila and `addressCountry` PH | [Product brief](index.md#what-the-site-must-say) |
+| `description` | Home's meta description, word for word | The `<meta name="description">` tag in `index.html` |
+
+It deliberately leaves out a logo, social profiles (`sameAs`), founding date, phone number, street address, people and the portfolio companies. Add one of those only when the site owner supplies it; the portfolio companies change and are listed in `src/data/companies.js`.
+
+**Keep it current.** When the company's name, address, email or main domain changes, update this block in the same change, along with the product brief. When Home's meta description in `index.html` changes, copy the new text into the block's `description`. `src/structuredData.test.js` fails if the block is missing, appears more than once, isn't valid JSON, or any field differs from the values above (including a `description` that no longer matches the meta tag), so update the test's expected values too. The site owner can check the live page in Google's Rich Results Test or the Schema Markup Validator after a release.
+
 ## Recommendations
 
 In priority order. Effort is rough: **S** is under half a day, **M** is a day or two, **L** is more.
@@ -94,7 +112,7 @@ In priority order. Effort is rough: **S** is under half a day, **M** is a day or
 | --- | --- | --- | --- | --- |
 | 1 | Verify `dgc.ph` in Google Search Console as a domain property, and in Bing Webmaster Tools (which can import from Search Console). | Every other step needs this data to show it worked. A domain property also covers `www.dgc.ph`. | S | Site owner; see [Accounts and access](#accounts-and-access). |
 | 2 | Add `robots.txt` and `sitemap.xml` listing the four pages. | Tells crawlers where every page is and stops `/robots.txt` returning HTML. | S | Done in [#41](https://github.com/a1drich/dgc-website/issues/41). Live once released. |
-| 3 | Add an `Organization` JSON-LD block to `index.html`. | Gives search engines a machine-readable description of DGC for brand searches. A static block in `index.html` reaches every crawler. | S | [#42](https://github.com/a1drich/dgc-website/issues/42) |
+| 3 | Add an `Organization` JSON-LD block to `index.html`. | Gives search engines a machine-readable description of DGC for brand searches. A static block in `index.html` reaches every crawler. | S | Done in [#42](https://github.com/a1drich/dgc-website/issues/42); see [Structured data](#structured-data). |
 | 4 | Make the Home and About titles and descriptions match their target queries (see [the proposed text](#recommended-title-and-description-changes)). | The Home title and description are cut off in results, and neither page uses "family office", which founders search for. | S | Copy change for the site owner to approve. |
 | 5 | Update `og:description` and `twitter:description` per page in `usePageMeta`, from each page's `meta.description`. | Pages currently keep Home's social description even in a browser. | S | Done in [#45](https://github.com/a1drich/dgc-website/issues/45). Pages can set a shorter `socialDescription`; Home does, to keep its link preview text. |
 | 6 | Add a 1200 × 630 social preview image as `og:image` and `twitter:image`, and give the favicon its own file in `public/`. | Shared links get an image, the `summary_large_image` card has something to show, and search results can show DGC's icon. | S–M | Needs an image the site owner approves. |

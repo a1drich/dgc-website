@@ -16,6 +16,8 @@ This page is the product brief for **dgc.ph**, the public website of De Leon Gro
 - Which companies it backs today (Bookmo, lyv, Comuni and The Hillside), with links to the live ones.
 - How to get in touch: `contact@dgc.ph`.
 
+The company name, Manila location, email and main address `https://dgc.ph` are also stated in the structured data block in `index.html`. Update it in the same change when any of them changes (see [Structured data](seo.md#structured-data)).
+
 ## The four pages
 
 | Page | Path | Purpose |
