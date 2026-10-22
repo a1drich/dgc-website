@@ -19,6 +19,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 
 ## GitHub
 - Repo: `a1drich/dgc-website` (personal account)
+- `main` is protected by a ruleset (no bypass): it only changes through a pull request whose `verify` and `browser` checks pass. Direct pushes, force pushes and deleting it are rejected. See `docs/decisions.md`
 - Use SSH key **`~/.ssh/id_ed25519_personal`** (public: `id_ed25519_personal.pub`) for all git operations — never the work key
 - Remote uses the `github-personal` host alias from `~/.ssh/config`: `github-personal:a1drich/dgc-website.git`
 - This repo has `core.sshCommand` pinned to force the personal key + `IdentitiesOnly=yes`, so plain `git push` works. Do **not** remove that local config — without it ssh-agent may offer a different key first and GitHub will reject the push.
@@ -28,6 +29,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 ## Deploy
 - Vercel project linked to the GitHub repo. Its production branch is `production`: pushes to `production` deploy dgc.ph
 - Merges to `main` only create a Vercel preview deployment; they don't change the live site
+- A ruleset stops `production` from being deleted. It still allows updates and force pushes, which `make release` and `make rollback` need
 - A release fast-forwards `production` to a verified commit on `main`. `make release` does this from a checkout of that commit, and `make rollback REF=<commit>` puts an earlier one back. Only the site owner releases, so keep `main` releasable, don't push to `production` and never run either command
 - Custom domain `dgc.ph` configured in Vercel → Domains. It is the main address that canonical URLs use; `www.dgc.ph` redirects to it permanently (308). See `docs/decisions.md`
 
