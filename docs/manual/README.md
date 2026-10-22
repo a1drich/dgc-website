@@ -40,7 +40,7 @@ The About page (`/about`) explains who DGC is and how it works with the companie
 It has four parts:
 
 - **Who we are**: DGC as a privately held, family-backed office focused on future-ready businesses in the Philippines.
-- **What we invest in**: the five categories DGC backs, from technology platforms to agri-tech and food systems.
+- **What we invest in**: the five categories DGC backs, from technology platforms to agri-tech and food systems, numbered **01**–**05**. Their numbers use the same size as the **Our approach** and portfolio list numbers.
 - **Our approach**: four numbered points on how DGC works with founders, such as patient capital and hands-on support when it is needed.
 - **Reach out**: a button that opens the Contact page.
 
