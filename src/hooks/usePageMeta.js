@@ -28,10 +28,12 @@ function setCanonical(href) {
 }
 
 // Sets the document title and the head tags from index.html for the current
-// page. `socialTitle` is the og:title / twitter:title and defaults to `title`.
+// page. `socialTitle` is the og:title / twitter:title and defaults to `title`;
+// `socialDescription` is the og:description / twitter:description and defaults
+// to `description`.
 // `noindex` adds a robots noindex tag and drops the canonical link; every
 // other page removes the robots tag again.
-export default function usePageMeta({ title, description, socialTitle, noindex = false }) {
+export default function usePageMeta({ title, description, socialTitle, socialDescription, noindex = false }) {
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -42,6 +44,8 @@ export default function usePageMeta({ title, description, socialTitle, noindex =
     setMeta('meta[name="description"]', 'name', 'description', description)
     setMeta('meta[property="og:title"]', 'property', 'og:title', socialTitle ?? title)
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', socialTitle ?? title)
+    setMeta('meta[property="og:description"]', 'property', 'og:description', socialDescription ?? description)
+    setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', socialDescription ?? description)
     setMeta('meta[property="og:url"]', 'property', 'og:url', url)
 
     if (noindex) {
@@ -51,5 +55,5 @@ export default function usePageMeta({ title, description, socialTitle, noindex =
       setCanonical(url)
       document.head.querySelector('meta[name="robots"]')?.remove()
     }
-  }, [pathname, title, description, socialTitle, noindex])
+  }, [pathname, title, description, socialTitle, socialDescription, noindex])
 }
