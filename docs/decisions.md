@@ -16,9 +16,9 @@ This page is the decision log for the dgc.ph website: each entry records a choic
 
 ## Tailwind CSS v4 with the theme in `src/index.css`
 
-**Decision:** Styling uses Tailwind CSS v4 through the `@tailwindcss/vite` plugin. The design tokens (the `forest`, `sand`, `olive`, `gold` and `ink` colours, the Inter and Fraunces font stacks and letter-spacing) are defined in the `@theme` block of `src/index.css`. There is no `tailwind.config.js`.
+**Decision:** Styling uses Tailwind CSS v4 through the `@tailwindcss/vite` plugin. The design tokens (the `forest`, `sand`, `olive`, `gold` and `ink` colours, the Inter and Fraunces font stacks, the small-label sizes (`text-label-xs` to `text-label-lg`) and the letter-spacings (`tracking-display`, `tracking-eyebrow`, `tracking-label`, `tracking-control`)) are defined in the `@theme` block of `src/index.css`. There is no `tailwind.config.js`.
 
-**Why:** Tailwind v4 configures the theme in CSS rather than a JavaScript config file, so the tokens live next to the rest of the global styles. Add new colours or fonts to `@theme` instead of using raw hex values in components.
+**Why:** Tailwind v4 configures the theme in CSS rather than a JavaScript config file, so the tokens live next to the rest of the global styles. Add new colours, fonts, type sizes or letter-spacings to `@theme` instead of using raw hex values or arbitrary values in components. The small uppercase labels used to repeat hand-copied values such as `text-[11px] tracking-[0.22em]`, which had drifted to five letter-spacings for one pattern; tokens keep new pages on the same few values.
 
 ## SPA rewrite in `vercel.json` and unknown paths show a not-found page with noindex
 

@@ -23,7 +23,7 @@ export default function NotFound() {
           <div className="reveal flex flex-wrap items-center gap-4">
             <Link
               to="/"
-              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-sand-100 transition-all hover:bg-forest-700"
+              className="group inline-flex items-center gap-3 rounded-full bg-forest-900 px-7 py-4 text-label tracking-control uppercase text-sand-100 transition-all hover:bg-forest-700"
             >
               Go to home
               <span
@@ -35,7 +35,7 @@ export default function NotFound() {
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-3 rounded-full border border-forest-900/20 px-7 py-4 text-[12px] tracking-[0.18em] uppercase text-forest-900 transition-colors hover:border-forest-900 hover:bg-forest-900/5"
+              className="inline-flex items-center gap-3 rounded-full border border-forest-900/20 px-7 py-4 text-label tracking-control uppercase text-forest-900 transition-colors hover:border-forest-900 hover:bg-forest-900/5"
             >
               Contact us
             </Link>

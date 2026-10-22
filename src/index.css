@@ -36,8 +36,15 @@
     Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "Fraunces", "Inter", ui-serif, Georgia, serif;
 
-  --tracking-tightest: -0.04em;
-  --tracking-display: -0.02em;
+  --text-label-xs: 10px;
+  --text-label-sm: 11px;
+  --text-label: 12px;
+  --text-label-lg: 13px;
+
+  --tracking-display: -0.025em;
+  --tracking-eyebrow: 0.24em;
+  --tracking-label: 0.22em;
+  --tracking-control: 0.18em;
 }
 
 :root {

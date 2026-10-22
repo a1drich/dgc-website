@@ -29,13 +29,13 @@ export default function PortfolioCard({
       ↗
     </span>
   ) : (
-    <span className="inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-forest-900/15 px-3 py-1 text-[10px] tracking-[0.2em] uppercase text-ink-400">
+    <span className="inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-forest-900/15 px-3 py-1 text-label-xs tracking-label uppercase text-ink-400">
       Coming soon
     </span>
   )
 
   const domainLine = domain && (
-    <p className="text-[12px] tracking-[0.18em] uppercase text-ink-400 transition-colors group-hover:text-forest-700 group-focus-visible:text-forest-700">
+    <p className="text-label tracking-control uppercase text-ink-400 transition-colors group-hover:text-forest-700 group-focus-visible:text-forest-700">
       {domain}
       <span className="sr-only"> (opens in a new tab)</span>
     </p>
@@ -62,7 +62,7 @@ export default function PortfolioCard({
           row ? 'lg:col-span-1 lg:block' : ''
         }`}
       >
-        <p className="min-w-0 text-[12px] tracking-[0.22em] uppercase text-ink-400">
+        <p className="min-w-0 text-label tracking-label uppercase text-ink-400">
           {number}
           {sector && (
             <span className={row ? 'lg:hidden' : ''}>
@@ -76,7 +76,7 @@ export default function PortfolioCard({
 
       <div className={row ? 'lg:col-span-4' : ''}>
         {sector && row && (
-          <p className="hidden text-[11px] tracking-[0.22em] uppercase text-ink-400 lg:block">
+          <p className="hidden text-label-sm tracking-label uppercase text-ink-400 lg:block">
             {sector}
           </p>
         )}

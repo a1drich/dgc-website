@@ -68,6 +68,7 @@ A merged change is not live until it has been released. Any commit on `main` can
 - [`AGENTS.md`](AGENTS.md): working conventions, routes, commands and deploy notes.
 - [`docs/index.md`](docs/index.md): product brief, who the site is for and what it must say.
 - [`docs/design.md`](docs/design.md): design system, the tokens, type scale and shared patterns to reuse when building a page.
+- [`docs/seo.md`](docs/seo.md): SEO strategy, which searches each page should be found for and what to do next.
 - [`docs/decisions.md`](docs/decisions.md): decision log.
 - [`docs/manual/README.md`](docs/manual/README.md): user manual, one section per page with screenshots.
 

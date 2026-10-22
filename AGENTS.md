@@ -4,7 +4,7 @@ Static marketing site for **dgc.ph**, deployed to Vercel. Human contributors sta
 
 ## Stack
 - Vite 6 + React 18 (JS, no TypeScript), React Router 7 in declarative (client-only SPA) mode
-- Tailwind CSS v4. The theme (colours, fonts, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`. The patterns built from it are documented in `docs/design.md`
+- Tailwind CSS v4. The theme (colours, fonts, label sizes, tracking) lives in `src/index.css` under `@theme`; there is no `tailwind.config.js`. New type sizes and letter-spacings get a token in `@theme` (used as `text-label`, `tracking-label`) rather than an arbitrary value such as `text-[12px]` or `tracking-[0.2em]`. The patterns built from it are documented in `docs/design.md`
 - Vite plugins: `@vitejs/plugin-react` 4.x supports Vite up to 7, so check its peer range before moving Vite to a new major
 - Fix `npm audit` findings with `npm audit fix` plus deliberate version bumps; don't use `npm audit fix --force`, which jumps majors
 - Node version is pinned in `.nvmrc` (Node 24), which CI reads; run `nvm use` locally. There is deliberately no `engines` field in `package.json` (see `docs/decisions.md`)
@@ -66,6 +66,7 @@ This checks all routes and the not-found page at desktop/mobile widths, navigati
 The docs site is MkDocs with the Material theme (`mkdocs.yml`, pages in `docs/`).
 - `docs/index.md` — product brief: who the site is for and what it must say
 - `docs/design.md` — design system: tokens, type scale, shared patterns and known inconsistencies. Read it before building or restyling a page, and update it when you add a token or pattern
+- `docs/seo.md` — SEO strategy: target searches per page, current state and prioritised recommendations. Check it before changing a page's `meta` title or description, and update its current-state table when an SEO gap is closed
 - `PRODUCT.md` and `DESIGN.md` (repo root) — short pointers to `docs/index.md` and `docs/design.md` for tools and readers that look for them; keep the content in `docs/`
 - `docs/decisions.md` — decision log. Add an entry (decision + why) when you make a choice the next contributor would otherwise have to guess
 - `docs/manual/README.md` — user manual: one section per page or shared part of the site, in plain language, with desktop and mobile screenshots

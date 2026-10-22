@@ -20,5 +20,6 @@ markdown_extensions:
 nav:
   - Product brief: index.md
   - Design system: design.md
+  - SEO strategy: seo.md
   - Decision log: decisions.md
   - User manual: manual/README.md
