@@ -17,6 +17,12 @@ function renderAt(path) {
   )
 }
 
+function socialDescriptions() {
+  return ['meta[property="og:description"]', 'meta[name="twitter:description"]'].map((selector) =>
+    document.head.querySelector(selector)?.getAttribute('content'),
+  )
+}
+
 const routes = [
   { path: '/', meta: homeMeta, heading: /Building the future of technology & sustainable ventures in the Philippines/ },
   { path: '/about', meta: aboutMeta, heading: 'A privately held family office focused on future-ready businesses.' },
@@ -29,6 +35,7 @@ describe('routes', () => {
     renderAt(path)
     expect(screen.getByRole('heading', { level: 1, name: heading })).toBeTruthy()
     expect(document.title).toBe(meta.title)
+    expect(socialDescriptions()).toEqual([meta.socialDescription ?? meta.description, meta.socialDescription ?? meta.description])
     expect(document.head.querySelector('meta[name="robots"]')).toBeNull()
   })
 
@@ -36,6 +43,7 @@ describe('routes', () => {
     renderAt('/nope')
     expect(screen.getByRole('heading', { level: 1, name: 'We couldn’t find that page.' })).toBeTruthy()
     expect(document.title).toBe(notFoundMeta.title)
+    expect(socialDescriptions()).toEqual([notFoundMeta.description, notFoundMeta.description])
     expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex')
     expect(document.head.querySelector('link[rel="canonical"]')).toBeNull()
   })

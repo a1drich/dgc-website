@@ -35,6 +35,8 @@ export const meta = {
   description:
     'De Leon Group of Companies (DGC) is a Philippine-based family office investing in and building companies across technology, digital platforms, and sustainability-driven industries.',
   socialTitle: 'De Leon Group of Companies — DGC',
+  socialDescription:
+    'A Philippine-based family office investing in technology, digital platforms, and sustainability-driven ventures.',
 }
 
 export default function Home() {
